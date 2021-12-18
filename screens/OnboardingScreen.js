@@ -5,6 +5,7 @@ const OnboardingScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
             <Text>Onboarding Screen</Text>
+            <Text>hi</Text>
             <Button
                 title="Login"
                 onPress={() => navigation.navigate("Login")}
