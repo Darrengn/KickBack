@@ -6,8 +6,12 @@ const OnboardingScreen = ({navigation}) => {
         <View style={styles.container}>
             <Text>Onboarding Screen</Text>
             <Button
-                title="Click Here"
+                title="Login"
                 onPress={() => navigation.navigate("Login")}
+            />
+            <Button
+                title="Sign Up"
+                onPress={() => navigation.navigate("Signup")}
             />
         </View>
     );
