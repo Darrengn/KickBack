@@ -13,6 +13,10 @@ const OnboardingScreen = ({navigation}) => {
                 title="Sign Up"
                 onPress={() => navigation.navigate("Signup")}
             />
+            <Button
+                title="Home"
+                onPress={() => navigation.navigate("Home")}
+            />
         </View>
     );
 }
