@@ -75,6 +75,14 @@ const SignupScreen = ({navigation}) => {
                         <TextInput style={styles.input} onChangeText={onChangeVPassword} value={vPassword}>
                             Verify Password
                         </TextInput>
+                        <View style = {{backgroundColor: 'black', width: 150}}>
+                            <Button style ={styles.input}
+                                title="Create Account"
+                                color='white'
+                                onPress={() => alert('Login')}
+                            />
+                        </View>
+                        
                     </View>
                 </ScrollView>
             </View>
