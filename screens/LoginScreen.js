@@ -15,12 +15,19 @@ const LoginScreen = ({navigation}) => {
             <View style = {[styles.container,{flex:12}]}>
                 <View style = {[styles.container, {flex: 10, justifyContent: 'flex-end'}]}>
                     <Text style = {{fontSize: 40}}>Kickback</Text>
-                    <TextInput style={styles.input} onChangeText={onChangeEmail} value={email}>
-                        Email Address
-                    </TextInput>
-                    <TextInput style={styles.input} onChangeText={onChangePassword} value={password}>
-                        Password
-                    </TextInput>
+                    <TextInput 
+                        style={styles.input} 
+                        onChangeText={onChangeEmail} 
+                        value={email}
+                        placeholder='Email'
+                    />
+                    <TextInput 
+                        style={styles.input} 
+                        onChangeText={onChangePassword} 
+                        value={password}
+                        placeholder='Password'
+                        secureTextEntry
+                    />
                     <Text style = {{fontSize: 25}}>OR</Text>
                 </View>
                 <View style = {{flex: 2,}}>
