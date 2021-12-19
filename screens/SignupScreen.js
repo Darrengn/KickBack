@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TextInput, Picker, ScrollView} from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, Picker, ScrollView, KeyboardAvoidingView} from 'react-native';
 
 const SignupScreen = ({navigation}) => {
     const [first, onChangeFirst] = React.useState('');
@@ -32,19 +32,24 @@ const SignupScreen = ({navigation}) => {
                 />
                 <Text style = {{fontSize: 25}}>Or</Text>
                 <ScrollView>
-                    <View style = {styles.container}>
-                        
+                    <KeyboardAvoidingView style = {styles.container}>
 
-                        <TextInput style={styles.input} onChangeText={onChangeFirst} value={first}>
-                            First Name
-                        </TextInput>
+                        <TextInput 
+                            style={styles.input} 
+                            onChangeText={onChangeFirst} 
+                            value={first}
+                            placeholder='First Name'
+                        />
 
-                        <TextInput style={styles.input} onChangeText={onChangeLast} value={last}>
-                            Last Name
-                        </TextInput>
+                        <TextInput 
+                            style={styles.input} 
+                            onChangeText={onChangeLast} 
+                            value={last}
+                            placeholder='Last Name'
+                        />
 
-                        <Text style = {{fontSize: 25}}>Birthday</Text>
-
+                        <Text style = {{fontSize: 25}}>Birthday</Text> 
+                    </KeyboardAvoidingView>
 
                         
                         <View style = {styles.container}>
@@ -59,31 +64,50 @@ const SignupScreen = ({navigation}) => {
                                 <Picker.Item label="Female" value="female" />
                             </Picker>
                         </View>
+                    <KeyboardAvoidingView style = {styles.container}>
+                        <TextInput 
+                            style={styles.input} 
+                            onChangeText={onChangeEmail} 
+                            value={email}
+                            placeholder='Email Address'
+                        />
+                        <TextInput 
+                            style={styles.input} 
+                            onChangeText={onChangeVEmail} 
+                            value={vEmail}
+                            placeholder='Verify Email Address'
+                        />
+                        <TextInput style=
+                            {styles.input} 
+                            onChangeText={onChangeUsername} 
+                            value={username}
+                            placeholder='Username'
+                        />
+                        <TextInput 
+                            style={styles.input} 
+                            onChangeText={onChangePassword} 
+                            value={password}
+                            placeholder='Password'
+                            secureTextEntry
+                        />
+                        <TextInput 
+                            style={styles.input} 
+                            onChangeText={onChangeVPassword} 
+                            value={vPassword}
+                            placeholder='Verify Password'
+                            secureTextEntry
+                        />
                         
-                        <TextInput style={styles.input} onChangeText={onChangeEmail} value={email}>
-                            Email Address
-                        </TextInput>
-                        <TextInput style={styles.input} onChangeText={onChangeVEmail} value={vEmail}>
-                            Verify Email Address
-                        </TextInput>
-                        <TextInput style={styles.input} onChangeText={onChangeUsername} value={username}>
-                            Username
-                        </TextInput>
-                        <TextInput style={styles.input} onChangeText={onChangePassword} value={password}>
-                            Password
-                        </TextInput>
-                        <TextInput style={styles.input} onChangeText={onChangeVPassword} value={vPassword}>
-                            Verify Password
-                        </TextInput>
-                        <View style = {{backgroundColor: 'black', width: 150}}>
+                        
+                    
+                    </KeyboardAvoidingView>
+                    <View style = {{backgroundColor: 'black', width: 150, alignSelf: 'center'}}>
                             <Button style ={styles.input}
                                 title="Create Account"
                                 color='white'
                                 onPress={() => alert('Login')}
                             />
                         </View>
-                        
-                    </View>
                 </ScrollView>
             </View>
         </View>
