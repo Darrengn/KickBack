@@ -45,7 +45,12 @@ const LoginScreen = ({navigation}) => {
                         <Text style={{color: 'white', fontSize: 20}}>Login</Text>
                     </View>
                 </TouchableWithoutFeedback>
-                <View style = {{flex: 8}}></View>
+                <View style= {[styles.input,{borderWidth: 0,}]}>
+                    <TouchableWithoutFeedback onPress={() => alert('Move to forgot password')}>
+                        <Text style= {{textAlign:'right', textDecorationLine:'underline'}}>Forgot Password?</Text>
+                    </TouchableWithoutFeedback>
+                </View>
+                <View style = {{flex: 7}}></View>
             </View>
         </View>
     );
