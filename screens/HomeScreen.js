@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, TouchableWithoutFeedback } from 'react-native';
 
 const HomeScreen = ({navigation}) => {
     const [search, onChangeSearch] = React.useState('');
@@ -9,14 +9,13 @@ const HomeScreen = ({navigation}) => {
                 
             </View>
             <View style = {[styles.container,{flex: 12}]}>
-                <View style = {{flexDirection: 'row', flex: 1, alignItems: 'flex-start'}}>
-                    <Text style = {{fontSize: 40,}}>New Kickbacks</Text>
-                    <Button
-                        title="settings"
-                        onPress={() => navigation.navigate("Onboarding")} // TODO change to settings page
-                    />
+                <View style = {{flexDirection: 'row', flex: 1,}}>
+                    <Text style = {{fontSize: 40, alignSelf:'center'}}>New Kickbacks</Text>
+                    <TouchableWithoutFeedback onPress={() => navigation.navigate("Onboarding")}>
+                        <Text style = {{backgroundColor: 'grey', height:'100%', color: 'blue'}}>Settngs</Text>
+                    </TouchableWithoutFeedback>
                 </View>
-                <View style = {[styles.input, {flex: 1, width: '90%',flexDirection:'row'}]}>
+                <View style = {[styles.input, {flex: 1, width: '80%',flexDirection:'row'}]}>
                 <TextInput 
                     style={{flex:1,}} 
                     onChangeText={onChangeSearch} 
@@ -24,7 +23,25 @@ const HomeScreen = ({navigation}) => {
                     placeholder='Search'    
                 />
                 </View>
-                <View style = {{flex:15}}></View>
+                <View style = {{flex:12}}>
+
+                </View>
+                <TouchableWithoutFeedback onPress={() => alert('Login')}>
+                    <View style = {[styles.input, {flex: 1, width: '80%',flexDirection:'row', justifyContent: 'center', alignItems:'center'}]}>
+                        <Text style = {{fontSize: 20, fontWeight: 'bold'}}>See More</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+                <View style= {{flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignContent:'space-between'}}>
+                    <TouchableWithoutFeedback>
+                        <Text>Home</Text>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback>
+                        <Text>Host</Text>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback>
+                        <Text>Add Friend</Text>
+                    </TouchableWithoutFeedback>
+                </View>
             </View>
         </View>
     );
