@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TextInput, Picker, ScrollView, KeyboardAvoidingView} from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, Picker, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
 
 const SignupScreen = ({navigation}) => {
     const [first, onChangeFirst] = React.useState('');
@@ -16,7 +16,7 @@ const SignupScreen = ({navigation}) => {
             <View style = {{flex: 1, alignItems: 'flex-start', justifyContent: 'flex-end', backgroundColor: 'black'}}>
                 <Button
                     title="  Back"
-                    onPress={() => navigation.navigate("Onboarding")}
+                    onPress={() => navigation.navigate("Onboarding")} // needs to change to touchable and needs symbol
                 />
             </View>
             <View style = {[styles.container, {flex: 12}]}>
@@ -32,7 +32,7 @@ const SignupScreen = ({navigation}) => {
                 />
                 <Text style = {{fontSize: 25}}>Or</Text>
                 <ScrollView>
-                    <KeyboardAvoidingView style = {styles.container}>
+                    <KeyboardAvoidingView style = {[styles.container, {flex: 5}]}>
 
                         <TextInput 
                             style={styles.input} 
@@ -48,22 +48,23 @@ const SignupScreen = ({navigation}) => {
                             placeholder='Last Name'
                         />
 
-                        <Text style = {{fontSize: 25}}>Birthday</Text> 
+                        <Text style = {{fontSize: 20}}>Birthday</Text> 
                     </KeyboardAvoidingView>
 
                         
-                        <View style = {styles.container}>
-                            <Text style = {{fontSize: 25}}>Gender</Text>
-                            <Picker
-                                selectedValue={gender}
-                                style={{ height: 20, width: 150 }}
-                                onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
-                            >
-                                <Picker.Item label="Other" value="other" />
-                                <Picker.Item label="Male" value="male" />
-                                <Picker.Item label="Female" value="female" />
-                            </Picker>
-                        </View>
+                    <View style = {[styles.input, {flexDirection: 'row', borderWidth: 1,}]}>
+                        <Text style = {{fontSize: 18}}>Gender</Text>
+                        <Picker // Still needs work
+                            selectedValue={gender}
+                            style={{ height: 10, width: 150, alignSelf:'flex-end' }}
+                            onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
+                        >
+                            <Picker.Item label="Other" value="other" />
+                            <Picker.Item label="Male" value="male" />
+                            <Picker.Item label="Female" value="female" />
+                        </Picker>
+                    </View>
+
                     <KeyboardAvoidingView style = {styles.container}>
                         <TextInput 
                             style={styles.input} 
@@ -101,13 +102,13 @@ const SignupScreen = ({navigation}) => {
                         
                     
                     </KeyboardAvoidingView>
-                    <View style = {{backgroundColor: 'black', width: 150, alignSelf: 'center'}}>
-                            <Button style ={styles.input}
-                                title="Create Account"
-                                color='white'
-                                onPress={() => alert('Login')}
-                            />
-                        </View>
+                    <TouchableWithoutFeedback onPress={() => alert('Create Account')}>
+                    <View style = {{backgroundColor: 'black', width: 150, height:50, alignSelf: 
+                        'center', alignItems:'center', justifyContent:'center'}}>
+                        
+                        <Text style= {{color: 'white', fontSize: 20 }}>Create Account</Text>
+                    </View>
+                    </TouchableWithoutFeedback>
                 </ScrollView>
             </View>
         </View>
@@ -128,6 +129,6 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
-        textAlign: 'center',
+       
       },
   });
