@@ -114,7 +114,7 @@ const SignupScreen = ({navigation}) => {
 
                     <TouchableWithoutFeedback onPress={() => alert('Create Account')}>
                         <View style = {{backgroundColor: 'black', width: 150, height:50, alignSelf: 
-                            'center', alignItems:'center', justifyContent:'center', borderRadius:'15'}}>
+                            'center', alignItems:'center', justifyContent:'center', borderRadius:'10'}}>
                             
                             <Text style= {{color: 'white', fontSize: 20 }}>Create Account</Text>
                         </View>
