@@ -30,7 +30,7 @@ const LoginScreen = ({navigation}) => {
                     />
                     <Text style = {{fontSize: 25}}>OR</Text>
                 </View>
-                <View style = {{flex: 2,}}>
+                <View style = {{flex: 2, padding: 10}}>
                     <Button style ={styles.input}
                         title="Sign in with Google"
                         onPress={() => alert('sign in with google')}
@@ -41,7 +41,9 @@ const LoginScreen = ({navigation}) => {
                     />
                 </View>
                 <TouchableWithoutFeedback onPress={() => alert('Login')}>
-                    <View style = {{flex: 1, borderWidth: 1, backgroundColor: 'black', width:300, justifyContent:'center', alignItems:'center'}}>
+                    <View style = {{flex: 1, borderWidth: 1, backgroundColor: 'black', width:300, justifyContent:'center', 
+                        alignItems:'center', borderRadius:10}}>
+                        
                         <Text style={{color: 'white', fontSize: 20}}>Login</Text>
                     </View>
                 </TouchableWithoutFeedback>
