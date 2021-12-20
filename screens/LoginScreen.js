@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, TouchableWithoutFeedback } from 'react-native';
 
 const LoginScreen = ({navigation}) => {
     const [email, onChangeEmail] = React.useState('');
@@ -40,13 +40,11 @@ const LoginScreen = ({navigation}) => {
                     onPress={() => alert('sign in with facebook')}
                     />
                 </View>
-                <View style = {{flex: 1, borderWidth: 1, backgroundColor: 'black', width:300, justifyContent:'center'}}>
-                    <Button style ={styles.input}
-                        title="Login"
-                        color='white'
-                        onPress={() => alert('Login')}
-                    />
-                </View>
+                <TouchableWithoutFeedback onPress={() => alert('Login')}>
+                    <View style = {{flex: 1, borderWidth: 1, backgroundColor: 'black', width:300, justifyContent:'center', alignItems:'center'}}>
+                        <Text style={{color: 'white', fontSize: 20}}>Login</Text>
+                    </View>
+                </TouchableWithoutFeedback>
                 <View style = {{flex: 8}}></View>
             </View>
         </View>
