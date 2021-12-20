@@ -8,7 +8,7 @@ const ForgotPassword2 = ({navigation}) => {
             <View style = {{flex: 1, alignItems: 'flex-start', justifyContent: 'flex-end', backgroundColor: 'black'}}>
                 <Button
                     title="  Back"
-                    onPress={() => navigation.navigate("Login")}
+                    onPress={() => navigation.navigate("ForgotPassword1")}
                 />
             </View>
             <View style = {[styles.container,{flex:12, justifyContent:'flex-start'}]}>
