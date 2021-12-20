@@ -32,8 +32,8 @@ const ForgotPassword3 = ({navigation}) => {
                     />
                 </View>
                 <TouchableWithoutFeedback onPress={() => alert("check if same")}>
-                    <View style = {[styles.input,{backgroundColor: 'black', justifyContent:'center', alignItems:'center'}]}>
-                        <Text style={{color: 'white', fontSize: 18}}>Reset Password</Text>
+                    <View style = {[styles.input,{backgroundColor: 'black', justifyContent:'center', alignItems:'center',borderRadius:10}]}>
+                        <Text style={{color: 'white', fontSize: 16}}>Reset Password</Text>
                     </View>
                 </TouchableWithoutFeedback>
             </View>

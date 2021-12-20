@@ -23,8 +23,8 @@ const ForgotPassword2 = ({navigation}) => {
                     />
                 </View>
                 <TouchableWithoutFeedback onPress={() => navigation.navigate("ForgotPassword3")}>
-                    <View style = {[styles.input,{backgroundColor: 'black', justifyContent:'center', alignItems:'center'}]}>
-                        <Text style={{color: 'white', fontSize: 18}}>Verify</Text>
+                    <View style = {[styles.input,{backgroundColor: 'black', justifyContent:'center', alignItems:'center', borderRadius:10}]}>
+                        <Text style={{color: 'white', fontSize: 16}}>Verify</Text>
                     </View>
                 </TouchableWithoutFeedback>
             </View>
