@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, TextInput, Picker, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
+import { auth } from '../firebase'
 
 const SignupScreen = ({navigation}) => {
     const [first, onChangeFirst] = React.useState('');
@@ -12,6 +13,16 @@ const SignupScreen = ({navigation}) => {
     const [password, onChangePassword] = React.useState('');
     const [vPassword, onChangeVPassword] = React.useState('');
     
+    const handleSignUp = () => {
+        auth
+          .createUserWithEmailAndPassword(email, password)
+          .then(userCredentials => {
+              const user = userCredentials.user;
+              console.log('Registered with ' + user.email)
+          })
+          .catch(error => alert(error.message))
+    }
+
     return (
         <View style={{flex:1,}}>
             <View style = {{flex: '7%', alignItems:'flex-start', justifyContent:'flex-end'}}>
@@ -112,7 +123,7 @@ const SignupScreen = ({navigation}) => {
                         secureTextEntry
                     />
 
-                    <TouchableWithoutFeedback onPress={() => alert('Create Account')}>
+                    <TouchableWithoutFeedback onPress={handleSignUp}>
                         <View style = {{backgroundColor: 'black', width: 150, height:50, alignSelf: 
                             'center', alignItems:'center', justifyContent:'center', borderRadius:'10'}}>
                             
