@@ -9,7 +9,7 @@ const HomeScreen = ({navigation}) => {
                 
             </View>
 
-            <View style = {[styles.container,{flex: '93%'}]}>
+            <View style = {[styles.container,{flex: '80%'}]}>
                 <View style = {{flexDirection: 'row', flex: 1,}}>
                     <Text style = {{fontSize: 40, alignSelf:'center'}}>New Kickbacks</Text>
                     <TouchableWithoutFeedback onPress={() => navigation.navigate("Onboarding")}>
@@ -165,22 +165,24 @@ const HomeScreen = ({navigation}) => {
                         </View>
                     </ScrollView>
                 </View>
-
-                <View style= {{flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems:'center', width: 400, borderTopWidth: 2}}>
-                    <TouchableWithoutFeedback onPress={() => alert('Home')}>
-                        <Text>Home</Text>
-                    </TouchableWithoutFeedback>
-
-                    <TouchableWithoutFeedback onPress={() => alert('Host')}>
-                        <Text>Host</Text>
-                    </TouchableWithoutFeedback>
-
-                    <TouchableWithoutFeedback onPress={() => alert('Add Friend')}>
-                        <Text>Add Friend</Text>
-                    </TouchableWithoutFeedback>
-                </View>
-
             </View>
+            
+            <View style = {[styles.container, {flex: '13%'}]}>
+                <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', alignItems:'center', width: 400, borderTopWidth: 2}}>
+                        <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
+                            <Text>Home</Text>
+                        </TouchableWithoutFeedback>
+
+                        <TouchableWithoutFeedback onPress={() => alert('Host')}>
+                            <Text>Host</Text>
+                        </TouchableWithoutFeedback>
+
+                        <TouchableWithoutFeedback onPress={() => navigation.navigate("AddFriend")}>
+                            <Text>Add Friend</Text>
+                        </TouchableWithoutFeedback>
+                </View>
+            </View>
+            
         </View>
     );
 };
