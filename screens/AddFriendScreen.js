@@ -26,7 +26,7 @@ const AddFriendScreen = ({navigation}) => {
                         <View style = {[styles.container,{flex:4,justifyContent: 'flex-start', width: 350}]}>
                             <Text style = {{fontSize: 18, fontWeight: 'bold', alignSelf:'flex-start'}}>Suggested Friends</Text>
                             <ScrollView showsVerticalScrollIndicator ={false}>
-                                <TouchableWithoutFeedback onPress={() => alert('Go to friend 1')}>
+                                <TouchableWithoutFeedback onPress={() => navigation.navigate("Profile")}>
                                     <View style = {styles.friend}>
                                         <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 1</Text>
                                     </View>
