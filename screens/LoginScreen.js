@@ -1,9 +1,22 @@
-import React from 'react';
+//replaced with code from DylanLee_Signin branch
+import React, { useEffect } from 'react';
 import { View, Text, Button, StyleSheet, TextInput, TouchableWithoutFeedback } from 'react-native';
+import { auth } from '../firebase';
 
 const LoginScreen = ({navigation}) => {
     const [email, onChangeEmail] = React.useState('');
     const [password, onChangePassword] = React.useState('');
+
+    const handleLogin = () => {
+        auth
+          .signInWithEmailAndPassword(email, password)
+          .then(userCredentials => {
+            const user = userCredentials.user;
+            console.log('Logged in with ' + user.email);
+        })
+        .catch(error => alert(error.message))
+    }
+
     return (
         <View style={{flex: 1}}>
             <View style = {{flex: 1, alignItems: 'flex-start', justifyContent: 'flex-end', backgroundColor: 'black'}}>
@@ -40,7 +53,7 @@ const LoginScreen = ({navigation}) => {
                     onPress={() => alert('sign in with facebook')}
                     />
                 </View>
-                <TouchableWithoutFeedback onPress={() => alert('Login')}>
+                <TouchableWithoutFeedback onPress={handleLogin}>
                     <View style = {{flex: 1, borderWidth: 1, backgroundColor: 'black', width:300, justifyContent:'center', 
                         alignItems:'center', borderRadius:10}}>
                         
