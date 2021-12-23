@@ -61,7 +61,7 @@ const LoginScreen = ({navigation}) => {
                     </View>
                 </TouchableWithoutFeedback>
                 <View style= {[styles.input,{borderWidth: 0,}]}>
-                    <TouchableWithoutFeedback onPress={() => alert('Move to forgot password')}>
+                    <TouchableWithoutFeedback onPress={() => navigation.navigate("ForgotPassword1")}>
                         <Text style= {{textAlign:'right', textDecorationLine:'underline'}}>Forgot Password?</Text>
                     </TouchableWithoutFeedback>
                 </View>
