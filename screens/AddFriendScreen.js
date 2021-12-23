@@ -25,47 +25,49 @@ const AddFriendScreen = ({navigation}) => {
                 <View style = {{flex: 12,}}>
                         <View style = {[styles.container,{flex:4,justifyContent: 'flex-start', width: 350}]}>
                             <Text style = {{fontSize: 18, fontWeight: 'bold', alignSelf:'flex-start'}}>Suggested Friends</Text>
-                            <TouchableWithoutFeedback onPress={() => alert('Go to friend 1')}>
-                                <View style = {styles.friend}>
-                                    <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 1</Text>
-                                </View>
-                            </TouchableWithoutFeedback>
+                            <ScrollView showsVerticalScrollIndicator ={false}>
+                                <TouchableWithoutFeedback onPress={() => alert('Go to friend 1')}>
+                                    <View style = {styles.friend}>
+                                        <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 1</Text>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                            <TouchableWithoutFeedback onPress={() => alert('Go to friend 2')}>
-                                <View style = {styles.friend}>
-                                    <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 2</Text>
-                                </View>
-                            </TouchableWithoutFeedback>    
-                            
-                            <TouchableWithoutFeedback onPress={() => alert('Go to friend 3')}>
-                                <View style = {styles.friend}>
-                                    <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 3</Text>
-                                </View>
-                            </TouchableWithoutFeedback>
+                                <TouchableWithoutFeedback onPress={() => alert('Go to friend 2')}>
+                                    <View style = {styles.friend}>
+                                        <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 2</Text>
+                                    </View>
+                                </TouchableWithoutFeedback>    
+                                
+                                <TouchableWithoutFeedback onPress={() => alert('Go to friend 3')}>
+                                    <View style = {styles.friend}>
+                                        <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 3</Text>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                            <TouchableWithoutFeedback onPress={() => alert('Go to friend 3')}>
-                                <View style = {styles.friend}>
-                                    <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 4</Text>
-                                </View>
-                            </TouchableWithoutFeedback>
+                                <TouchableWithoutFeedback onPress={() => alert('Go to friend 3')}>
+                                    <View style = {styles.friend}>
+                                        <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 4</Text>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                            <TouchableWithoutFeedback onPress={() => alert('Go to friend 3')}>
-                                <View style = {styles.friend}>
-                                    <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 5</Text>
-                                </View>
-                            </TouchableWithoutFeedback>
-                            <TouchableWithoutFeedback onPress={() => alert('Go to friend 3')}>
-                                <View style = {styles.friend}>
-                                    <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 6</Text>
-                                </View>
-                            </TouchableWithoutFeedback>
+                                <TouchableWithoutFeedback onPress={() => alert('Go to friend 3')}>
+                                    <View style = {styles.friend}>
+                                        <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 5</Text>
+                                    </View>
+                                </TouchableWithoutFeedback>
+                                <TouchableWithoutFeedback onPress={() => alert('Go to friend 3')}>
+                                    <View style = {styles.friend}>
+                                        <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 6</Text>
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            </ScrollView>
                         </View>
                         
                         <View style = {[styles.container,{flex:6, justifyContent: 'flex-start', width: 350}]}>
                             <Text style = {{fontSize: 18, fontWeight: 'bold', alignSelf:'flex-start'}}>Suggested Groups</Text>
-                            
-                            <View style = {{width: 400, alignItems:'center'}}>    
-                                    <TouchableWithoutFeedback onPress={() => alert('Go to Group 1')}>
+                            <ScrollView showsVerticalScrollIndicator ={false}>
+                                <View style = {{width: 350, alignItems:'center'}}>    
+                                    <TouchableWithoutFeedback onPress={() => navigation.navigate("Group")}>
                                         <View style = {styles.friend}>
                                             <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Group 1</Text>
                                         </View>
@@ -94,7 +96,7 @@ const AddFriendScreen = ({navigation}) => {
                                             <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Group 5</Text>
                                         </View>
                                     </TouchableWithoutFeedback>
-                                
+                                    
                                     <TouchableWithoutFeedback onPress={() => alert('Go to Group 6')}>
                                         <View style = {styles.friend}>
                                             <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Group 6</Text>
@@ -112,7 +114,8 @@ const AddFriendScreen = ({navigation}) => {
                                             <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Group 8</Text>
                                         </View>
                                     </TouchableWithoutFeedback>
-                            </View>
+                                </View>
+                            </ScrollView>
                         </View>
                 </View>
             </View>

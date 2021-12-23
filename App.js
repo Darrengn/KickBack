@@ -8,6 +8,7 @@ import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import HomeScreen from './screens/HomeScreen';
 import AddFriendScreen from './screens/AddFriendScreen';
+import GroupScreen from './screens/GroupScreen';
 
 const AppStack = createStackNavigator();
 
@@ -22,6 +23,7 @@ const App = () => {
         <AppStack.Screen name="Signup" component={SignupScreen} />
         <AppStack.Screen name="Home" component={HomeScreen} />
         <AppStack.Screen name="AddFriend" component={AddFriendScreen} />
+        <AppStack.Screen name="Group" component={GroupScreen} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

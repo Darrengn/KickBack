@@ -26,9 +26,7 @@ const HomeScreen = ({navigation}) => {
                     />
                 </View>
                 <View style = {{flex: 12}}>
-                    <ScrollView 
-                        showsVerticalScrollIndicator ={false}                      
-                    >
+                    <ScrollView showsVerticalScrollIndicator ={false}>
                         <View style = {[styles.container,{flex:6, justifyContent: 'flex-start', width: 350}]}>
                             <Text style = {{fontSize: 14, fontWeight: 'bold', alignSelf:'flex-start'}}>Upcoming Events</Text>
                             <TouchableWithoutFeedback onPress={() => alert('Go to Event 1')}>
