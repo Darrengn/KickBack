@@ -9,14 +9,14 @@ const HomeScreen = ({navigation}) => {
                 <StatusBar barStyle="dark-content"/>
             </SafeAreaView>
             <View style = {[styles.container,{flex: '93%'}]}>
-                <View style = {{flexDirection: 'row', flex: 1,}}>
+                <View style = {{flexDirection: 'row', flex: '7.5%',}}>
                     <Text style = {{fontSize: 40, alignSelf:'center'}}>New Kickbacks</Text>
                     <TouchableWithoutFeedback onPress={() => navigation.navigate("Onboarding")}>
                         <Text style = {{backgroundColor: 'grey', height:'100%', color: 'blue'}}>Settngs</Text>
                     </TouchableWithoutFeedback>
                 </View>
 
-                <View style = {[styles.event, {flex: 1, flexDirection:'row'}]}>
+                <View style = {[styles.event, {flex: '7.5%', flexDirection:'row'}]}>
                     <TextInput 
                         style={{flex:1, padding: 5}} 
                         onChangeText={onChangeSearch} 
@@ -24,7 +24,7 @@ const HomeScreen = ({navigation}) => {
                         placeholder='Search'    
                     />
                 </View>
-                <View style = {{flex: 12}}>
+                <View style = {{flex: '85%'}}>
                     <ScrollView showsVerticalScrollIndicator ={false}>
                         <View style = {[styles.container, {flex:6, justifyContent: 'flex-start', width: 400,}]}>
                             <Text style = {{fontSize: 14, fontWeight: 'bold', alignSelf:'flex-start'}}>Upcoming Events</Text>
