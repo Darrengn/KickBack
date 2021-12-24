@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { borderColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 const HomeScreen = ({navigation}) => {
     const [search, onChangeSearch] = React.useState('');
     return (
-        <View style={{flex: 1}}>
-            <View style = {{flex: '7%', alignItems: 'flex-start', justifyContent: 'flex-end', backgroundColor: 'black'}}>
+        <View style={{flex: 1, backgroundColor:'#EDF6F9'}}>
+            <View style = {{flex: '7%', alignItems: 'flex-start', justifyContent: 'flex-end', backgroundColor: '#023047'}}>
                 
             </View>
 
@@ -27,14 +28,15 @@ const HomeScreen = ({navigation}) => {
                 </View>
                 <View style = {{flex: 12}}>
                     <ScrollView showsVerticalScrollIndicator ={false}>
-                        <View style = {[styles.container,{flex:6, justifyContent: 'flex-start', width: 350}]}>
+                        <View style = {[styles.container, {flex:6, justifyContent: 'flex-start', width: 400,}]}>
                             <Text style = {{fontSize: 14, fontWeight: 'bold', alignSelf:'flex-start'}}>Upcoming Events</Text>
                             <TouchableWithoutFeedback onPress={() => alert('Go to Event 1')}>
                                 <View style = {styles.event}>
-                                    <View style ={{flex:'22.5%',borderWidth:1}}>
+                                    <View style ={{flex:'20%',borderWidth:1, 
+                                        borderColor:'black',borderRadius:300, justifyContent:'center', alignItems:'center'}}>
                                         <Text>Image here</Text>
                                     </View>
-                                    <View style = {{flex:'77.5%'}}>
+                                    <View style = {{flex:'80%'}}>
                                         <Text style = {{fontWeight:'bold'}}>Event 1</Text>
                                         <Text>Description</Text>
                                         <Text>Date</Text>
@@ -72,7 +74,7 @@ const HomeScreen = ({navigation}) => {
                             </TouchableWithoutFeedback>
                         </View>
                         
-                        <View style = {[styles.container,{flex:6, justifyContent: 'flex-start', width: 350}]}>
+                        <View style = {[styles.container,{flex:6, justifyContent: 'flex-start', width: 400}]}>
                             <Text style = {{fontSize: 14, fontWeight: 'bold', alignSelf:'flex-start'}}>Suggested Events</Text>
                             <View style = {{width: 400, alignItems:'center'}}>
                                 
@@ -165,8 +167,8 @@ const HomeScreen = ({navigation}) => {
                 </View>
             </View>
             
-            <View style = {[styles.container, {flex: '13%'}]}>
-                <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', alignItems:'center', width: 400, borderTopWidth: 2}}>
+            <View style = {[styles.container, {flex: '13%',}]}>
+                <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', alignItems:'center', width: 400, borderTopWidth: 2,}}>
                         <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
                             <Text>Home</Text>
                         </TouchableWithoutFeedback>
@@ -204,8 +206,14 @@ const styles = StyleSheet.create({
     event: {
         height: 70,
         width: 350,
-        margin: 6,
-        borderWidth: 2,
-        flexDirection:'row'
+        margin: 15,
+        borderWidth:0,
+        flexDirection:'row',
+        backgroundColor:'white',
+        shadowOffset: {
+            width: 5,
+            height: 5,
+          },
+        shadowOpacity:0.1,
     },
   });

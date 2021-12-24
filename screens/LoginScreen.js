@@ -25,9 +25,9 @@ const LoginScreen = ({navigation}) => {
                     onPress={() => navigation.navigate("Onboarding")}
                 />
             </View>
-            <View style = {[styles.container,{flex:12}]}>
+            <View style = {[styles.container,{flex:12,}]}>
                 <View style = {[styles.container, {flex: 10, justifyContent: 'flex-end'}]}>
-                    <Text style = {{fontSize: 40}}>Kickback</Text>
+                    <Text style = {{fontSize: 40,}}>Kickback</Text>
                     <TextInput 
                         style={styles.input} 
                         onChangeText={onChangeEmail} 
