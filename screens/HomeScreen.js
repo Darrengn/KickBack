@@ -1,16 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import { borderColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
+import { View, Text, StyleSheet, TextInput, TouchableWithoutFeedback, ScrollView, SafeAreaView, StatusBar } from 'react-native';
 
 const HomeScreen = ({navigation}) => {
     const [search, onChangeSearch] = React.useState('');
     return (
         <View style={{flex: 1, backgroundColor:'#EDF6F9'}}>
-            <View style = {{flex: '7%', alignItems: 'flex-start', justifyContent: 'flex-end', backgroundColor: '#023047'}}>
-                
-            </View>
-
-            <View style = {[styles.container,{flex: '80%'}]}>
+            <SafeAreaView>
+                <StatusBar barStyle="dark-content"/>
+            </SafeAreaView>
+            <View style = {[styles.container,{flex: '93%'}]}>
                 <View style = {{flexDirection: 'row', flex: 1,}}>
                     <Text style = {{fontSize: 40, alignSelf:'center'}}>New Kickbacks</Text>
                     <TouchableWithoutFeedback onPress={() => navigation.navigate("Onboarding")}>
@@ -167,8 +165,10 @@ const HomeScreen = ({navigation}) => {
                 </View>
             </View>
             
-            <View style = {[styles.container, {flex: '13%',}]}>
-                <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', alignItems:'center', width: 400, borderTopWidth: 2,}}>
+            
+
+            <View style = {[styles.container, {flex: '7%', backgroundColor:'#023047', width:'100%', alignSelf:'center'}]}>
+                <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', alignItems:'center', width: 400,}}>
                         <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
                             <Text>Home</Text>
                         </TouchableWithoutFeedback>
@@ -182,7 +182,6 @@ const HomeScreen = ({navigation}) => {
                         </TouchableWithoutFeedback>
                 </View>
             </View>
-            
         </View>
     );
 };
