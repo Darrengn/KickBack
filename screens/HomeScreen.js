@@ -5,9 +5,11 @@ const HomeScreen = ({navigation}) => {
     const [search, onChangeSearch] = React.useState('');
     return (
         <View style={{flex: 1, backgroundColor:'#EDF6F9'}}>
+            
             <SafeAreaView>
                 <StatusBar barStyle="dark-content"/>
             </SafeAreaView>
+
             <View style = {[styles.container,{flex: '93%'}]}>
                 <View style = {{flexDirection: 'row', flex: '7.5%',}}>
                     <Text style = {{fontSize: 40, alignSelf:'center'}}>New Kickbacks</Text>
