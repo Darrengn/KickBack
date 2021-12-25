@@ -32,11 +32,13 @@ const HomeScreen = ({navigation}) => {
                             <Text style = {{fontSize: 14, fontWeight: 'bold', alignSelf:'flex-start'}}>Upcoming Events</Text>
                             <TouchableWithoutFeedback onPress={() => alert('Go to Event 1')}>
                                 <View style = {styles.event}>
-                                    <View style ={{flex:'20%',borderWidth:1, 
-                                        borderColor:'black',borderRadius:300, justifyContent:'center', alignItems:'center'}}>
+                                    <View style = {{width:10}}></View>
+                                    <View style ={{borderWidth:1, height: 70, width:70,
+                                        borderColor:'black',borderRadius:35, justifyContent:'center', alignItems:'center'}}>
                                         <Text>Image here</Text>
                                     </View>
-                                    <View style = {{flex:'80%'}}>
+                                    <View style = {{width:10}}></View>
+                                    <View style = {{width:260,}}>
                                         <Text style = {{fontWeight:'bold'}}>Event 1</Text>
                                         <Text>Description</Text>
                                         <Text>Date</Text>
@@ -172,15 +174,15 @@ const HomeScreen = ({navigation}) => {
             <View style = {[styles.container, {flex: '7%', backgroundColor:'#023047', width:'100%', alignSelf:'center'}]}>
                 <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', alignItems:'center', width: 400,}}>
                         <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
-                            <Text>Home</Text>
+                            <Text style = {{color:'white'}}>Home</Text>
                         </TouchableWithoutFeedback>
 
                         <TouchableWithoutFeedback onPress={() => alert('Host')}>
-                            <Text>Host</Text>
+                            <Text style = {{color:'white'}}>Host</Text>
                         </TouchableWithoutFeedback>
 
                         <TouchableWithoutFeedback onPress={() => navigation.navigate("AddFriend")}>
-                            <Text>Add Friend</Text>
+                            <Text style = {{color:'white'}}>Add Friend</Text>
                         </TouchableWithoutFeedback>
                 </View>
             </View>

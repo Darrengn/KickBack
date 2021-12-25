@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TextInput, Picker, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, Picker, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback, SafeAreaView, StatusBar} from 'react-native';
 import { auth } from '../firebase'
 
 const SignupScreen = ({navigation}) => {
@@ -24,8 +24,13 @@ const SignupScreen = ({navigation}) => {
     }
 
     return (
-        <View style={{flex:1,}}>
-            <View style = {{flex: '7%', alignItems:'flex-start', justifyContent:'flex-end'}}>
+        <View style={{flex:1, backgroundColor:'#EDF6F9'}}>
+
+            <SafeAreaView>
+                <StatusBar barStyle="dark-content"/>
+            </SafeAreaView>
+
+            <View style = {{flex: '4%', alignItems:'flex-start', justifyContent:'flex-end'}}>
                 <Button
                     style = {{}}
                     title="  Back"
@@ -151,6 +156,12 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 2,
         padding: 10,
-        fontSize:14
+        fontSize:14,
+        borderRadius:5,
+        shadowOffset: {
+            width: 5,
+            height: 5,
+          },
+        shadowOpacity:0.1,
       },
   });

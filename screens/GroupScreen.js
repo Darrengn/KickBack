@@ -61,15 +61,15 @@ const GroupScreen = ({navigation}) => {
             <View style = {[styles.container, {flex: '7%', backgroundColor:'#023047', width:'100%', alignSelf:'center'}]}>
                 <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', alignItems:'center', width: 400,}}>
                         <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
-                            <Text>Home</Text>
+                            <Text style = {{color:'white'}}>Home</Text>
                         </TouchableWithoutFeedback>
 
                         <TouchableWithoutFeedback onPress={() => alert('Host')}>
-                            <Text>Host</Text>
+                            <Text style = {{color:'white'}}>Host</Text>
                         </TouchableWithoutFeedback>
 
                         <TouchableWithoutFeedback onPress={() => navigation.navigate("AddFriend")}>
-                            <Text>Add Friend</Text>
+                            <Text style = {{color:'white'}}>Add Friend</Text>
                         </TouchableWithoutFeedback>
                 </View>
             </View>
