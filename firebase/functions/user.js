@@ -18,7 +18,6 @@ app.get('/', async (req, res) => {
         let data = doc.data();
         users.push({id, ...data});
     });
-    
     res.status(200).send(JSON.stringify(users)); //Sends user list back
 });
 
