@@ -28,30 +28,34 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignSelf: 'center',
       margin:10,
-      marginTop:150
+      marginTop:175
     },
     container2: {
       justifyContent: 'center',
+      alignSelf: 'center',
       margin:10,
     },
     loginbutton: {
       margin:'auto',
+      padding: 13,
       backgroundColor: 'white',
       borderColor: 'black',
       borderWidth: 2,
       textAlign: 'center',
-      width: 150,
-      borderRadius:4
+      width: 175,
+      borderRadius:6
     },
     createaccountbutton: {
       backgroundColor: 'black',
+      padding: 13,
       margin:'auto',
       borderColor: 'black',
       borderWidth: 2,
       textAlign: 'center',
       color: 'white',
-      width: 150,
-      borderRadius:4
+      width: 175,
+      borderRadius:6,
+      overflow: 'hidden'
     }
   });
   
