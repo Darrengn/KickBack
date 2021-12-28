@@ -1,6 +1,6 @@
 //replaced with code from DylanLee_Signin branch
 import React, { useEffect } from 'react';
-import { View, Text, Button, StyleSheet, TextInput, TouchableWithoutFeedback, SafeAreaView, StatusBar } from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, StatusBar,TouchableHighlight} from 'react-native';
 import { auth } from '../firebase';
 
 const LoginScreen = ({navigation}) => {
@@ -59,17 +59,17 @@ const LoginScreen = ({navigation}) => {
                         onPress={() => alert('sign in with facebook')}
                         />
                     </View>
-                    <TouchableWithoutFeedback onPress={handleLogin}>
+                    <TouchableHighlight onPress={handleLogin}>
                         <View style = {{flex: 1, borderWidth: 1, backgroundColor: 'black', width:300, justifyContent:'center', 
                             alignItems:'center', borderRadius:10}}>
                             
                             <Text style={{color: 'white', fontSize: 20}}>Login</Text>
                         </View>
-                    </TouchableWithoutFeedback>
+                    </TouchableHighlight>
                     <View style= {[styles.input,{borderWidth: 0,}]}>
-                        <TouchableWithoutFeedback onPress={() => alert('Move to forgot password')}>
+                        <TouchableOpacity onPress={() => alert('Move to forgot password')}>
                             <Text style= {{textAlign:'right', textDecorationLine:'underline'}}>Forgot Password?</Text>
-                        </TouchableWithoutFeedback>
+                        </TouchableOpacity>
                     </View>
                     <View style = {{flex: 7}}></View>
                 </View>

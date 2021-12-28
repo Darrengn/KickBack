@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableWithoutFeedback, ScrollView, SafeAreaView, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, SafeAreaView, StatusBar } from 'react-native';
 
 const AddFriendScreen = ({navigation}) => {
     const [search, onChangeSearch] = React.useState('');
@@ -27,40 +27,40 @@ const AddFriendScreen = ({navigation}) => {
                         <View style = {[styles.container,{flex:4,justifyContent: 'flex-start', width: 350}]}>
                             <Text style = {{fontSize: 18, fontWeight: 'bold', alignSelf:'flex-start'}}>Suggested Friends</Text>
                             <ScrollView showsVerticalScrollIndicator ={false}>
-                                <TouchableWithoutFeedback onPress={() => navigation.navigate("Profile")}>
+                                <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
                                     <View style = {styles.friend}>
                                         <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 1</Text>
                                     </View>
-                                </TouchableWithoutFeedback>
+                                </TouchableOpacity>
 
-                                <TouchableWithoutFeedback onPress={() => alert('Go to friend 2')}>
+                                <TouchableOpacity onPress={() => alert('Go to friend 2')}>
                                     <View style = {styles.friend}>
                                         <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 2</Text>
                                     </View>
-                                </TouchableWithoutFeedback>    
+                                </TouchableOpacity>    
                                 
-                                <TouchableWithoutFeedback onPress={() => alert('Go to friend 3')}>
+                                <TouchableOpacity onPress={() => alert('Go to friend 3')}>
                                     <View style = {styles.friend}>
                                         <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 3</Text>
                                     </View>
-                                </TouchableWithoutFeedback>
+                                </TouchableOpacity>
 
-                                <TouchableWithoutFeedback onPress={() => alert('Go to friend 3')}>
+                                <TouchableOpacity onPress={() => alert('Go to friend 3')}>
                                     <View style = {styles.friend}>
                                         <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 4</Text>
                                     </View>
-                                </TouchableWithoutFeedback>
+                                </TouchableOpacity>
 
-                                <TouchableWithoutFeedback onPress={() => alert('Go to friend 3')}>
+                                <TouchableOpacity onPress={() => alert('Go to friend 3')}>
                                     <View style = {styles.friend}>
                                         <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 5</Text>
                                     </View>
-                                </TouchableWithoutFeedback>
-                                <TouchableWithoutFeedback onPress={() => alert('Go to friend 3')}>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => alert('Go to friend 3')}>
                                     <View style = {styles.friend}>
                                         <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Name 6</Text>
                                     </View>
-                                </TouchableWithoutFeedback>
+                                </TouchableOpacity>
                             </ScrollView>
                         </View>
                         
@@ -68,53 +68,53 @@ const AddFriendScreen = ({navigation}) => {
                             <Text style = {{fontSize: 18, fontWeight: 'bold', alignSelf:'flex-start'}}>Suggested Groups</Text>
                             <ScrollView showsVerticalScrollIndicator ={false}>
                                 <View style = {{width: 350, alignItems:'center'}}>    
-                                    <TouchableWithoutFeedback onPress={() => navigation.navigate("Group")}>
+                                    <TouchableOpacity onPress={() => navigation.navigate("Group")}>
                                         <View style = {styles.friend}>
                                             <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Group 1</Text>
                                         </View>
-                                    </TouchableWithoutFeedback>
+                                    </TouchableOpacity>
 
-                                    <TouchableWithoutFeedback onPress={() => alert('Go to Group 2')}>
+                                    <TouchableOpacity onPress={() => alert('Go to Group 2')}>
                                         <View style = {styles.friend}>
                                             <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Group 2</Text>
                                         </View>
-                                    </TouchableWithoutFeedback>
+                                    </TouchableOpacity>
 
-                                    <TouchableWithoutFeedback onPress={() => alert('Go to Group 3')}>
+                                    <TouchableOpacity onPress={() => alert('Go to Group 3')}>
                                         <View style = {styles.friend}>
                                             <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Group 3</Text>
                                         </View>
-                                    </TouchableWithoutFeedback>
+                                    </TouchableOpacity>
 
-                                    <TouchableWithoutFeedback onPress={() => alert('Go to Group 4')}>
+                                    <TouchableOpacity onPress={() => alert('Go to Group 4')}>
                                         <View style = {styles.friend}>
                                             <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Group 4</Text>
                                         </View>
-                                    </TouchableWithoutFeedback>
+                                    </TouchableOpacity>
 
-                                    <TouchableWithoutFeedback onPress={() => alert('Go to Group 5')}>
+                                    <TouchableOpacity onPress={() => alert('Go to Group 5')}>
                                         <View style = {styles.friend}>
                                             <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Group 5</Text>
                                         </View>
-                                    </TouchableWithoutFeedback>
+                                    </TouchableOpacity>
                                     
-                                    <TouchableWithoutFeedback onPress={() => alert('Go to Group 6')}>
+                                    <TouchableOpacity onPress={() => alert('Go to Group 6')}>
                                         <View style = {styles.friend}>
                                             <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Group 6</Text>
                                         </View>
-                                    </TouchableWithoutFeedback>
+                                    </TouchableOpacity>
 
-                                    <TouchableWithoutFeedback onPress={() => alert('Go to Group 6')}>
+                                    <TouchableOpacity onPress={() => alert('Go to Group 6')}>
                                         <View style = {styles.friend}>
                                             <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Group 7</Text>
                                         </View>
-                                    </TouchableWithoutFeedback>
+                                    </TouchableOpacity>
 
-                                    <TouchableWithoutFeedback onPress={() => alert('Go to Group 6')}>
+                                    <TouchableOpacity onPress={() => alert('Go to Group 6')}>
                                         <View style = {styles.friend}>
                                             <Text style = {{fontSize:16, alignSelf:'flex-start'}}>+ Group 8</Text>
                                         </View>
-                                    </TouchableWithoutFeedback>
+                                    </TouchableOpacity>
                                 </View>
                             </ScrollView>
                         </View>
@@ -123,17 +123,17 @@ const AddFriendScreen = ({navigation}) => {
             
             <View style = {[styles.container, {flex: '7%', backgroundColor:'#023047', width:'100%', alignSelf:'center'}]}>
                 <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', alignItems:'center', width: 400,}}>
-                        <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
+                        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
                             <Text style = {{color:'white'}}>Home</Text>
-                        </TouchableWithoutFeedback>
+                        </TouchableOpacity>
 
-                        <TouchableWithoutFeedback onPress={() => alert('Host')}>
+                        <TouchableOpacity onPress={() => alert('Host')}>
                             <Text style = {{color:'white'}}>Host</Text>
-                        </TouchableWithoutFeedback>
+                        </TouchableOpacity>
 
-                        <TouchableWithoutFeedback onPress={() => navigation.navigate("AddFriend")}>
+                        <TouchableOpacity onPress={() => navigation.navigate("AddFriend")}>
                             <Text style = {{color:'white'}}>Add Friend</Text>
-                        </TouchableWithoutFeedback>
+                        </TouchableOpacity>
                 </View>
             </View>
             

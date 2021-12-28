@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TextInput, Picker, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback, SafeAreaView, StatusBar} from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, Picker, ScrollView, KeyboardAvoidingView, TouchableOpacity, SafeAreaView, StatusBar} from 'react-native';
 import { auth } from '../firebase'
 
 const SignupScreen = ({navigation}) => {
@@ -128,13 +128,13 @@ const SignupScreen = ({navigation}) => {
                         secureTextEntry
                     />
 
-                    <TouchableWithoutFeedback onPress={handleSignUp}>
+                    <TouchableOpacity onPress={handleSignUp}>
                         <View style = {{backgroundColor: 'black', width: 150, height:50, alignSelf: 
                             'center', alignItems:'center', justifyContent:'center', borderRadius:'10'}}>
                             
                             <Text style= {{color: 'white', fontSize: 20 }}>Create Account</Text>
                         </View>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
 
                 </ScrollView>
             </KeyboardAvoidingView>

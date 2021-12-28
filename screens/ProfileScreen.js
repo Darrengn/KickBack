@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableWithoutFeedback, StatusBar, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, StatusBar, SafeAreaView } from 'react-native';
 
 const ProfileScreen = ({navigation}) => {
     return (
@@ -40,11 +40,11 @@ const ProfileScreen = ({navigation}) => {
                 </View>
                 
                 <View style = {{flex:'7%', justifyContent:'center', alignItems:'center'}}>
-                    <TouchableWithoutFeedback onPress={() => alert('Added as Friend')}>
+                    <TouchableOpacity onPress={() => alert('Added as Friend')}>
                         <View style = {{width:200, borderWidth:2, height:60, borderRadius:10, alignItems:'center', justifyContent:'center'}}>
                             <Text style ={{fontSize: 18, fontWeight:'bold'}}>Add Friend</Text>
                         </View>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
                 </View>
 
                 <View style = {{flex:'17%'}}></View>
@@ -53,17 +53,17 @@ const ProfileScreen = ({navigation}) => {
 
             <View style = {[styles.container, {flex: '7%', backgroundColor:'#023047', width:'100%', alignSelf:'center'}]}>
                 <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', alignItems:'center', width: 400,}}>
-                        <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
+                        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
                             <Text style = {{color:'white'}}>Home</Text>
-                        </TouchableWithoutFeedback>
+                        </TouchableOpacity>
 
-                        <TouchableWithoutFeedback onPress={() => alert('Host')}>
+                        <TouchableOpacity onPress={() => alert('Host')}>
                             <Text style = {{color:'white'}}>Host</Text>
-                        </TouchableWithoutFeedback>
+                        </TouchableOpacity>
 
-                        <TouchableWithoutFeedback onPress={() => navigation.navigate("AddFriend")}>
+                        <TouchableOpacity onPress={() => navigation.navigate("AddFriend")}>
                             <Text style = {{color:'white'}}>Add Friend</Text>
-                        </TouchableWithoutFeedback>
+                        </TouchableOpacity>
                 </View>
             </View>
 
