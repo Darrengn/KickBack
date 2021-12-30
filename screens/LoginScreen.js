@@ -67,7 +67,7 @@ const LoginScreen = ({navigation}) => {
                         </View>
                     </TouchableHighlight>
                     <View style= {[styles.input,{borderWidth: 0,}]}>
-                        <TouchableOpacity onPress={() => alert('Move to forgot password')}>
+                        <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword1")}>
                             <Text style= {{textAlign:'right', textDecorationLine:'underline'}}>Forgot Password?</Text>
                         </TouchableOpacity>
                     </View>
