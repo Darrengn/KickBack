@@ -15,15 +15,18 @@ public class EventService {
 
     }
 
+
     public List<EventEntity> findEvents() {
     	System.out.println("findEvents");
         return eventRepo.findAll();
     }
     
+
     public EventEntity saveEvent(EventEntity event) {
     	System.out.println("saveEvent");
     	return eventRepo.save(event);
     }
+    
     
     public void deleteEvent(Integer id) {
     	System.out.println("find event for delete:"+id);

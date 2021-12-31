@@ -56,6 +56,7 @@ public class UserController {
 		}
     }
     
+
     @DeleteMapping("/user/{userId}")
     public void deleteUser(@PathVariable Integer userId, @RequestHeader ("AuthToken") String userToken) throws IOException {
     	if(userService.isTokenValid(userToken)) {
@@ -63,6 +64,7 @@ public class UserController {
     	}
 	}
     
+
     @PostMapping("/login")
     public TokenEntity login(@RequestBody UserEntity loginUser) throws IOException {
     	System.out.println("Login");
@@ -89,11 +91,13 @@ public class UserController {
     	return null;
     }
     
+
     @DeleteMapping("/login/{token}")
     public void deleteTokenByString(@PathVariable String token, @RequestHeader ("AuthToken") String userToken) throws IOException{
     	userService.deleteTokenByString(userToken);
     }
     
+
     @DeleteMapping("/token/{tokenId}")
     public void deleteToken(@PathVariable Integer tokenId, @RequestHeader ("AuthToken") String userToken) throws IOException {
     	if(userService.isTokenValid(userToken)) {
@@ -101,6 +105,7 @@ public class UserController {
     	}
     }
     
+	
     public static String generateToken() {
         byte[] byts = new byte[128];
         rand.nextBytes(byts);
