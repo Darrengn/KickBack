@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react';
 import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, StatusBar,TouchableHighlight} from 'react-native';
 import { auth } from '../firebase';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 
 const LoginScreen = ({navigation}) => {
     const [email, onChangeEmail] = React.useState('');
@@ -24,12 +26,12 @@ const LoginScreen = ({navigation}) => {
                 <StatusBar barStyle="dark-content"/>
             </SafeAreaView>
 
-            <View style = {{flex: '4%', alignItems: 'flex-start', justifyContent: 'flex-end',}}>
-                <Button
-                    title="  Back"
-                    onPress={() => navigation.navigate("Onboarding")}
-                />
-            </View>
+            <TouchableOpacity onPress={() => navigation.navigate("Onboarding")}
+                style = {{flex: '4%', alignItems: 'flex-end', justifyContent: 'flex-start', flexDirection:'row',}}>
+                <View style = {{flex: 1}}></View>
+                <Icon style = {{flex: 10}} name="arrow-back-outline" size={30} color='black' />
+            </TouchableOpacity>
+
             <View style = {{flex: '96%'}}>
                 <View style = {[styles.container,{flex:12,}]}>
                     <View style = {[styles.container, {flex: 10, justifyContent: 'flex-end'}]}>
@@ -59,13 +61,15 @@ const LoginScreen = ({navigation}) => {
                         onPress={() => alert('sign in with facebook')}
                         />
                     </View>
-                    <TouchableHighlight onPress={handleLogin}>
-                        <View style = {{flex: 1, borderWidth: 1, backgroundColor: 'black', width:300, justifyContent:'center', 
-                            alignItems:'center', borderRadius:10}}>
-                            
-                            <Text style={{color: 'white', fontSize: 20}}>Login</Text>
-                        </View>
-                    </TouchableHighlight>
+                    <View style = {{flex: 1}}>
+                        <TouchableHighlight onPress={handleLogin}>
+                            <View style = {{flex: 1, borderWidth: 1, backgroundColor: 'black', width:300, justifyContent:'center', 
+                                alignItems:'center', borderRadius:10}}>
+                                
+                                <Text style={{color: 'white', fontSize: 20}}>Login</Text>
+                            </View>
+                        </TouchableHighlight>
+                    </View>
                     <View style= {[styles.input,{borderWidth: 0,}]}>
                         <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword1")}>
                             <Text style= {{textAlign:'right', textDecorationLine:'underline'}}>Forgot Password?</Text>
