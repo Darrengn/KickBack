@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, SafeAreaView, StatusBar } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const AddFriendScreen = ({navigation}) => {
     const [search, onChangeSearch] = React.useState('');
@@ -124,15 +125,15 @@ const AddFriendScreen = ({navigation}) => {
             <View style = {[styles.container, {flex: '7%', backgroundColor:'#023047', width:'100%', alignSelf:'center'}]}>
                 <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', alignItems:'center', width: 400,}}>
                         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-                            <Text style = {{color:'white'}}>Home</Text>
+                            <Icon name="home-outline" size={30} color='white' />
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={() => alert('Host')}>
-                            <Text style = {{color:'white'}}>Host</Text>
+                            <Icon name="calendar-outline" size={30} color='white' />
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={() => navigation.navigate("AddFriend")}>
-                            <Text style = {{color:'white'}}>Add Friend</Text>
+                            <Icon name="person-add-outline" size={30} color='white' />
                         </TouchableOpacity>
                 </View>
             </View>
