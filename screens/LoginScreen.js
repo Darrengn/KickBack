@@ -1,6 +1,6 @@
 //replaced with code from DylanLee_Signin branch
 import React, { useEffect } from 'react';
-import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, StatusBar,TouchableHighlight} from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, StatusBar,} from 'react-native';
 import { auth } from '../firebase';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -28,8 +28,8 @@ const LoginScreen = ({navigation}) => {
 
             <TouchableOpacity onPress={() => navigation.navigate("Onboarding")}
                 style = {{flex: '4%', alignItems: 'flex-end', justifyContent: 'flex-start', flexDirection:'row',}}>
-                <View style = {{flex: 1}}></View>
-                <Icon style = {{flex: 10}} name="arrow-back-outline" size={30} color='black' />
+                <View style = {{width: 20}}></View>
+                <Icon name="arrow-back-outline" size={30} color='black' />
             </TouchableOpacity>
 
             <View style = {{flex: '96%'}}>
@@ -62,13 +62,13 @@ const LoginScreen = ({navigation}) => {
                         />
                     </View>
                     <View style = {{flex: 1}}>
-                        <TouchableHighlight onPress={handleLogin}>
+                        <TouchableOpacity onPress={handleLogin}>
                             <View style = {{flex: 1, borderWidth: 1, backgroundColor: 'black', width:300, justifyContent:'center', 
                                 alignItems:'center', borderRadius:10}}>
                                 
                                 <Text style={{color: 'white', fontSize: 20}}>Login</Text>
                             </View>
-                        </TouchableHighlight>
+                        </TouchableOpacity>
                     </View>
                     <View style= {[styles.input,{borderWidth: 0,}]}>
                         <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword1")}>

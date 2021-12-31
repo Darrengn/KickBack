@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, TextInput, Picker, ScrollView, KeyboardAvoidingView, TouchableOpacity, SafeAreaView, StatusBar} from 'react-native';
 import { auth } from '../firebase'
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const SignupScreen = ({navigation}) => {
     const [first, onChangeFirst] = React.useState('');
@@ -30,17 +31,15 @@ const SignupScreen = ({navigation}) => {
                 <StatusBar barStyle="dark-content"/>
             </SafeAreaView>
 
-            <View style = {{flex: '4%', alignItems:'flex-start', justifyContent:'flex-end'}}>
-                <Button
-                    style = {{}}
-                    title="  Back"
-                    onPress={() => navigation.navigate("Onboarding")} // needs to change to touchable and needs symbol
-                />
-            </View>
+            <TouchableOpacity onPress={() => navigation.navigate("Onboarding")}
+                style = {{flex: '4%', alignItems: 'flex-end', justifyContent: 'flex-start', flexDirection:'row',}}>
+                <View style = {{width: 20}}></View>
+                <Icon name="arrow-back-outline" size={30} color='black' />
+            </TouchableOpacity>
 
             <KeyboardAvoidingView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
-                    style = {[styles.container, {flex: '93%', justifyContent:'flex-start'}]}
+                    style = {[styles.container, {flex: '96%', justifyContent:'flex-start'}]}
             >
                 <Text style = {{fontSize: 40, textAlign:'center', alignSelf:'center'}}>Create Account</Text>
                 <Button style ={styles.input}
@@ -135,6 +134,7 @@ const SignupScreen = ({navigation}) => {
                             <Text style= {{color: 'white', fontSize: 20 }}>Create Account</Text>
                         </View>
                     </TouchableOpacity>
+                    <View style = {{height:10}}></View>
 
                 </ScrollView>
             </KeyboardAvoidingView>

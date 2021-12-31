@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView, StatusBar, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, StatusBar,} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const GroupScreen = ({navigation}) => {
     return (
@@ -8,15 +9,15 @@ const GroupScreen = ({navigation}) => {
             <SafeAreaView>
                 <StatusBar barStyle="dark-content"/>
             </SafeAreaView>
-            <View style = {{flex:'93%'}}>
-                <View style = {{flex: '4%', alignItems: 'flex-start', justifyContent: 'flex-end',}}>
-                    <Button
-                        title="  Back"
-                        onPress={() => navigation.navigate("AddFriend")}
-                    />
-                </View>
 
-                    
+            <TouchableOpacity onPress={() => navigation.navigate("AddFriend")}
+                style = {{flex: '4%', alignItems: 'flex-end', justifyContent: 'flex-start', flexDirection:'row',}}>
+                <View style = {{width: 20}}></View>
+                <Icon name="arrow-back-outline" size={30} color='black' />
+            </TouchableOpacity>
+
+            <View style = {{flex:'89%'}}>
+                
                 <View style = {{flex: '8%', width:300, alignSelf:'center', justifyContent:'center', alignItems:'flexStart'}}>
                     <Text style = {{fontSize: 40, fontWeight:'bold'}}>Group 1</Text>
                 </View>
@@ -50,12 +51,14 @@ const GroupScreen = ({navigation}) => {
                 </View>
                 
                 <View style = {{flex:'7%', justifyContent:'center', alignItems:'center'}}>
-                    <TouchableHighlignt onPress={() => alert('Following')}>
+                    <TouchableOpacity onPress={() => alert('Following')}>
                         <View style = {{width:200, borderWidth:2, height:60, borderRadius:10, alignItems:'center', justifyContent:'center'}}>
                             <Text style ={{fontSize: 18, fontWeight:'bold'}}>Follow Group</Text>
                         </View>
-                    </TouchableHighlignt>
+                    </TouchableOpacity>
                 </View>
+
+                <View style = {{flex: '4%'}}/>
             </View>
 
             <View style = {[styles.container, {flex: '7%', backgroundColor:'#023047', width:'100%', alignSelf:'center'}]}>

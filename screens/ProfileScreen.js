@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, StatusBar, SafeAreaView } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const ProfileScreen = ({navigation}) => {
     return (
@@ -9,13 +10,13 @@ const ProfileScreen = ({navigation}) => {
                 <StatusBar barStyle="dark-content"/>
             </SafeAreaView>
 
+            <TouchableOpacity onPress={() => navigation.navigate("AddFriend")}
+                style = {{flex: '4%', alignItems: 'flex-end', justifyContent: 'flex-start', flexDirection:'row',}}>
+                <View style = {{width: 20}}></View>
+                <Icon name="arrow-back-outline" size={30} color='black' />
+            </TouchableOpacity>
+
             <View style = {{flex:'93%'}}>
-                <View style = {{flex: '4%', alignItems: 'flex-start', justifyContent: 'flex-end'}}>
-                    <Button
-                        title="  Back"
-                        onPress={() => navigation.navigate("AddFriend")}
-                    />
-                </View>
 
                 <View style = {{flex: '30%', justifyContent:'center', alignItems:'center'}}>
                     <View style = {{width: 200, height: 200, borderWidth:2}}>
@@ -47,7 +48,7 @@ const ProfileScreen = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
 
-                <View style = {{flex:'17%'}}></View>
+                <View style = {{flex:'21%'}}></View>
 
             </View>
 
