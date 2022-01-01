@@ -14,7 +14,7 @@ const HomeScreen = ({navigation}) => {
             <View style = {[styles.container,{flex: '93%'}]}>
                 <View style = {{flexDirection: 'row', flex: '7.5%',}}>
                     <View style = {{width: 60}}/>
-                    <Text style = {{fontSize: 40, alignSelf:'center', fontFamily:'overpass'}}>New Kickbacks</Text>
+                    <Text style = {{fontSize: 40, alignSelf:'center',}}>New Kickbacks</Text>
                     <View style = {{width: 30}}/>
                     <TouchableOpacity style = {{alignItems:'center', justifyContent:'center'}} onPress={() => navigation.navigate("Onboarding")}>
                         <Icon name="settings-outline" size={30} color='black' />
