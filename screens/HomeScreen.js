@@ -14,7 +14,7 @@ const HomeScreen = ({navigation}) => {
             <View style = {[styles.container,{flex: '93%'}]}>
                 <View style = {{flexDirection: 'row', flex: '7.5%',}}>
                     <View style = {{width: 60}}/>
-                    <Text style = {{fontSize: 40, alignSelf:'center'}}>New Kickbacks</Text>
+                    <Text style = {{fontSize: 40, alignSelf:'center', fontFamily:'overpass'}}>New Kickbacks</Text>
                     <View style = {{width: 30}}/>
                     <TouchableOpacity style = {{alignItems:'center', justifyContent:'center'}} onPress={() => navigation.navigate("Onboarding")}>
                         <Icon name="settings-outline" size={30} color='black' />
@@ -31,7 +31,7 @@ const HomeScreen = ({navigation}) => {
                         placeholder='Search'    
                     />
                 </View>
-                <View style = {{flex: '85%'}}>
+                <View style = {{flex: '82%'}}>
                     <ScrollView showsVerticalScrollIndicator ={false}>
                         
                         <View style = {[styles.container, {flex:6, justifyContent: 'flex-start', width: 400,}]}>
@@ -217,6 +217,7 @@ const HomeScreen = ({navigation}) => {
                         </View>
                     </ScrollView>
                 </View>
+                <View style = {{flex: '3%'}}/>
             </View>
             
             
@@ -253,14 +254,14 @@ const styles = StyleSheet.create({
         width: 450,
         margin: 12,
         borderWidth: 1,
-        padding: 10,
+        padding: 13,
         textAlign: 'center',
       },
     event: {
         height: 70,
         width: 350,
         margin: 15,
-        borderWidth:0,
+        borderRadius:6,
         flexDirection:'row',
         backgroundColor:'white',
         shadowOffset: {
