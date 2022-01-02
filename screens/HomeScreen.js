@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, SafeAreaView, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+
+
 const HomeScreen = ({navigation}) => {
     const [search, onChangeSearch] = React.useState('');
     return (
@@ -31,6 +33,43 @@ const HomeScreen = ({navigation}) => {
                         placeholder='Search'    
                     />
                 </View>
+
+                <View style = {{flex: '7.5%', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+                    <TouchableOpacity style = {styles.filter} >
+                        <Text>Beach</Text>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity>
+                        <View style = {styles.filter}>
+                            <Text>Party</Text>
+                        </View>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity>
+                        <View style = {styles.filter}>
+                            <Text>Sports</Text>
+                        </View>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity>
+                        <View style = {styles.filter}>
+                            <Text>Food</Text>
+                        </View>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity>
+                        <View style = {styles.filter}>
+                            <Text>Music</Text>
+                        </View>
+                    </TouchableOpacity>
+                    
+                    <TouchableOpacity>
+                        <View style = {styles.filter}>
+                            <Text>Bonfire</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+
                 <View style = {{flex: '82%'}}>
                     <ScrollView showsVerticalScrollIndicator ={false}>
                         
@@ -264,6 +303,20 @@ const styles = StyleSheet.create({
         borderRadius:6,
         flexDirection:'row',
         backgroundColor:'white',
+        shadowOffset: {
+            width: 5,
+            height: 5,
+          },
+        shadowOpacity:0.1,
+    },
+    filter: {
+        width: 50,
+        height: 40,
+        borderRadius:10,
+        margin:6,
+        backgroundColor:'white',
+        alignItems:'center',
+        justifyContent:'center',
         shadowOffset: {
             width: 5,
             height: 5,
