@@ -2,10 +2,38 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, SafeAreaView, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+class Filter extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {color:'white', pressed: false};
+    }
 
+    pressed(){
+        if(this.state.pressed){
+            this.setState({
+                color:'white',
+                pressed: false
+            })
+        } else {
+            this.setState({
+                color:'#81B29A',
+                pressed: true
+            })
+        }
+    }
+    
+    render(){
+        return (
+            <TouchableOpacity style = {[styles.filter, {backgroundColor: this.state.color}]} onPress={() => this.pressed()}>
+                            <Text>{this.props.name}</Text>
+            </TouchableOpacity>
+        )
+    }
+}
 
 const HomeScreen = ({navigation}) => {
     const [search, onChangeSearch] = React.useState('');
+    
     return (
         <View style={{flex: 1, backgroundColor:'#EDF6F9'}}>
             
@@ -35,39 +63,17 @@ const HomeScreen = ({navigation}) => {
                 </View>
 
                 <View style = {{flex: '7.5%', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                    <TouchableOpacity style = {styles.filter} >
-                        <Text>Beach</Text>
-                    </TouchableOpacity>
+                    <Filter name = 'Beach'/>
                     
-                    <TouchableOpacity>
-                        <View style = {styles.filter}>
-                            <Text>Party</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <Filter name = 'Party'/>
                     
-                    <TouchableOpacity>
-                        <View style = {styles.filter}>
-                            <Text>Sports</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <Filter name = 'Sports'/>
                     
-                    <TouchableOpacity>
-                        <View style = {styles.filter}>
-                            <Text>Food</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <Filter name = 'Food'/>
                     
-                    <TouchableOpacity>
-                        <View style = {styles.filter}>
-                            <Text>Music</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <Filter name = 'Music'/>
                     
-                    <TouchableOpacity>
-                        <View style = {styles.filter}>
-                            <Text>Bonfire</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <Filter name = 'Bonfire'/>
                 </View>
 
                 <View style = {{flex: '82%'}}>
