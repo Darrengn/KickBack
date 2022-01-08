@@ -1,7 +1,9 @@
 //replaced with code from DylanLee_Signin branch
 import React, { useEffect } from 'react';
-import { View, Text, Button, StyleSheet, TextInput, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, StatusBar,} from 'react-native';
 import { auth } from '../firebase';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 
 const LoginScreen = ({navigation}) => {
     const [email, onChangeEmail] = React.useState('');
@@ -18,54 +20,63 @@ const LoginScreen = ({navigation}) => {
     }
 
     return (
-        <View style={{flex: 1}}>
-            <View style = {{flex: 1, alignItems: 'flex-start', justifyContent: 'flex-end', backgroundColor: 'black'}}>
-                <Button
-                    title="  Back"
-                    onPress={() => navigation.navigate("Onboarding")}
-                />
-            </View>
-            <View style = {[styles.container,{flex:12}]}>
-                <View style = {[styles.container, {flex: 10, justifyContent: 'flex-end'}]}>
-                    <Text style = {{fontSize: 40}}>Kickback</Text>
-                    <TextInput 
-                        style={styles.input} 
-                        onChangeText={onChangeEmail} 
-                        value={email}
-                        placeholder='Email'
-                    />
-                    <TextInput 
-                        style={styles.input} 
-                        onChangeText={onChangePassword} 
-                        value={password}
-                        placeholder='Password'
-                        secureTextEntry
-                    />
-                    <Text style = {{fontSize: 25}}>OR</Text>
-                </View>
-                <View style = {{flex: 2, padding: 10}}>
-                    <Button style ={styles.input}
-                        title="Sign in with Google"
-                        onPress={() => alert('sign in with google')}
-                    />
-                    <Button style ={styles.input}
-                    title="Continue with Facebook"
-                    onPress={() => alert('sign in with facebook')}
-                    />
-                </View>
-                <TouchableWithoutFeedback onPress={handleLogin}>
-                    <View style = {{flex: 1, borderWidth: 1, backgroundColor: 'black', width:300, justifyContent:'center', 
-                        alignItems:'center', borderRadius:10}}>
-                        
-                        <Text style={{color: 'white', fontSize: 20}}>Login</Text>
+        <View style={{flex: 1, backgroundColor:'#EDF6F9'}}>
+            
+            <SafeAreaView>
+                <StatusBar barStyle="dark-content"/>
+            </SafeAreaView>
+
+            <TouchableOpacity onPress={() => navigation.navigate("Onboarding")}
+                style = {{flex: '4%', alignItems: 'flex-end', justifyContent: 'flex-start', flexDirection:'row',}}>
+                <View style = {{width: 20}}></View>
+                <Icon name="arrow-back-outline" size={30} color='black' />
+            </TouchableOpacity>
+
+            <View style = {{flex: '96%'}}>
+                <View style = {[styles.container,{flex:12,}]}>
+                    <View style = {[styles.container, {flex: 10, justifyContent: 'flex-end'}]}>
+                        <Text style = {{fontSize: 40,}}>Kickback</Text>
+                        <TextInput 
+                            style={styles.input} 
+                            onChangeText={onChangeEmail} 
+                            value={email}
+                            placeholder='Email'
+                        />
+                        <TextInput 
+                            style={styles.input} 
+                            onChangeText={onChangePassword} 
+                            value={password}
+                            placeholder='Password'
+                            secureTextEntry
+                        />
+                        <Text style = {{fontSize: 25}}>OR</Text>
                     </View>
-                </TouchableWithoutFeedback>
-                <View style= {[styles.input,{borderWidth: 0,}]}>
-                    <TouchableWithoutFeedback onPress={() => navigation.navigate("ForgotPassword1")}>
-                        <Text style= {{textAlign:'right', textDecorationLine:'underline'}}>Forgot Password?</Text>
-                    </TouchableWithoutFeedback>
+                    <View style = {{flex: 2, padding: 10}}>
+                        <Button style ={styles.input}
+                            title="Sign in with Google"
+                            onPress={() => alert('sign in with google')}
+                        />
+                        <Button style ={styles.input}
+                        title="Continue with Facebook"
+                        onPress={() => alert('sign in with facebook')}
+                        />
+                    </View>
+                    <View style = {{flex: 1}}>
+                        <TouchableOpacity onPress={handleLogin}>
+                            <View style = {{flex: 1, borderWidth: 1, backgroundColor: 'black', width:300, justifyContent:'center', 
+                                alignItems:'center', borderRadius:10}}>
+                                
+                                <Text style={{color: 'white', fontSize: 20}}>Login</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style= {[styles.input,{borderWidth: 0,}]}>
+                        <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword1")}>
+                            <Text style= {{textAlign:'right', textDecorationLine:'underline'}}>Forgot Password?</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style = {{flex: 7}}></View>
                 </View>
-                <View style = {{flex: 7}}></View>
             </View>
         </View>
     );
@@ -83,7 +94,14 @@ const styles = StyleSheet.create({
         height: 40,
         width: 300,
         margin: 12,
-        borderWidth: 1,
+        borderWidth: 2,
         padding: 10,
+        fontSize:14,
+        borderRadius:5,
+        shadowOffset: {
+            width: 5,
+            height: 5,
+          },
+        shadowOpacity:0.1,
       },
   });

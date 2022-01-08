@@ -3,22 +3,20 @@ import { TouchableOpacity, StyleSheet, Text, View, Button } from 'react-native';
 
 const OnboardingScreen = ({navigation}) => {
     return (
-        <View>
-            <View style = {styles.container}>
-            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                    <Text style = {styles.loginbutton}>
-                    LOG IN
-                    </Text>
-                </TouchableOpacity>
-                
-            </View>
-            <View style = {styles.container2}>
-                <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-                    <Text style = {styles.createaccountbutton}>
-                    CREATE ACCOUNT
-                    </Text>
-                </TouchableOpacity>
-            </View>
+        <View style={styles.container}>
+            <Text>Onboarding Screen</Text>
+            <Button
+                title="Login"
+                onPress={() => navigation.navigate("Login")}
+            />
+            <Button
+                title="Sign Up"
+                onPress={() => navigation.navigate("Signup")}
+            />
+            <Button
+                title="Home"
+                onPress={() => navigation.navigate("Home")}
+            />
         </View>
     );
 }
