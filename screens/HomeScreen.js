@@ -62,16 +62,12 @@ const HomeScreen = ({navigation}) => {
                     />
                 </View>
 
-                <View style = {{flex: '7.5%', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+                <View style = {{flex: '7.5%', flexDirection:'row', width: 350, justifyContent:'space-between', alignItems:'center'}}>
                     <Filter name = 'Beach'/>
                     
                     <Filter name = 'Party'/>
                     
                     <Filter name = 'Sports'/>
-                    
-                    <Filter name = 'Food'/>
-                    
-                    <Filter name = 'Music'/>
                     
                     <Filter name = 'Bonfire'/>
                 </View>
@@ -316,7 +312,7 @@ const styles = StyleSheet.create({
         shadowOpacity:0.1,
     },
     filter: {
-        width: 50,
+        width: 60,
         height: 40,
         borderRadius:10,
         margin:6,
