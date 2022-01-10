@@ -5,19 +5,21 @@ import Icon from 'react-native-vector-icons/Ionicons';
 class Filter extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {color:'white', pressed: false};
+        this.state = {color: props.color, pressed: false, txtColor: 'black'};
     }
 
     pressed(){
         if(this.state.pressed){
             this.setState({
-                color:'white',
-                pressed: false
+                color:this.props.color,
+                pressed: false,
+                txtColor: 'black'
             })
         } else {
             this.setState({
-                color:'#81B29A',
-                pressed: true
+                color:'#023047',
+                pressed: true,
+                txtColor: 'white'
             })
         }
     }
@@ -25,7 +27,7 @@ class Filter extends React.Component{
     render(){
         return (
             <TouchableOpacity style = {[styles.filter, {backgroundColor: this.state.color}]} onPress={() => this.pressed()}>
-                            <Text>{this.props.name}</Text>
+                            <Text style = {{color: this.state.txtColor}}>{this.props.name}</Text>
             </TouchableOpacity>
         )
     }
@@ -63,13 +65,13 @@ const HomeScreen = ({navigation}) => {
                 </View>
 
                 <View style = {{flex: '7.5%', flexDirection:'row', width: 350, justifyContent:'space-between', alignItems:'center'}}>
-                    <Filter name = 'Beach'/>
+                    <Filter name = 'Beach' color = '#e3c276'/>
                     
-                    <Filter name = 'Party'/>
+                    <Filter name = 'Party' color = '#c66bff' />
                     
-                    <Filter name = 'Sports'/>
+                    <Filter name = 'Sports' color = 'white'/>
                     
-                    <Filter name = 'Bonfire'/>
+                    <Filter name = 'Bonfire' color = '#f28e22' />
                 </View>
 
                 <View style = {{flex: '82%'}}>
