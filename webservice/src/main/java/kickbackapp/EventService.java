@@ -21,6 +21,11 @@ public class EventService {
         return eventRepo.findAll();
     }
     
+    public EventEntity findEvent(Integer id) {
+    	EventEntity event = eventRepo.findById(id);
+    	return event;
+    }
+    
 
     public EventEntity saveEvent(EventEntity event) {
     	System.out.println("saveEvent");

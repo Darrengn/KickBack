@@ -24,7 +24,17 @@ public class TokenEntity implements Serializable {
     
     @Column(nullable = false)
     private Integer userId;
-
+    
+    @Column(nullable = false)
+    private String username;
+    
+    public String getUsername() {
+    	return username;
+    }
+    
+    public void setUsername(String name) {
+    	this.username = name;
+    }
     public Integer getId() {
         return id;
     }

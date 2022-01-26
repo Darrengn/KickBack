@@ -18,19 +18,28 @@ public class UserEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)
     private Integer id;
+	
+	@Column(nullable = false)
+    private String username;
 
     @Column(nullable = false)
     private String name;
     
     @Column(nullable = false)
     private Integer tableId;
-
+    
+    @Column(nullable = false)
     private String password;
 
     public Integer getId() {
         return id;
     }
-
+    public String getUsername() { 
+    	return username;
+    }
+    public void setUsername(String username) {
+    	this.username = username;
+    }
 
     public void setId(Integer id) {
         this.id = id;

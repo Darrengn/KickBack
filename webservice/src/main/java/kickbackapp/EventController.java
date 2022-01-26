@@ -1,6 +1,7 @@
 package kickbackapp;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
+import kickbackapp.SimplifiedEvent;
 
 @RestController
 @CrossOrigin
@@ -30,17 +32,28 @@ public class EventController {
 
 
     @GetMapping("/events")
-    public List<EventEntity> findEvents(@RequestHeader("AuthToken") String userToken) throws IOException {
+    public List<SimplifiedEvent> findEvents(@RequestHeader("AuthToken") String userToken) throws IOException {
+    	System.out.println("Finding events for userToken" + userToken);
     	if(userService.isTokenValid(userToken)) {
 	    	List<EventEntity> eventList = eventService.findEvents();
+	    	List<SimplifiedEvent> simplifiedList = new ArrayList<SimplifiedEvent>();
 	    	for (int i = 0; i < eventList.size(); i++) {
-	    		if((eventList.get(i)).getOwner() != userService.findUserByToken(userToken).getName()) {
-					// Remove all events that aren't accessible by user
-	    			eventList.remove(i);
-	    			i--;
-	    		}
+	    		EventEntity event = eventList.get(i);
+	    		//if(event.getOwner() == userService.findUserByToken(userToken).getName()) {
+	    			simplifiedList.add(new kickbackapp.SimplifiedEvent(event.getId(), event.getName(), event.getOwner()));
+	    		//}
 	    	}
-		return eventList;   
+	    	return simplifiedList;   
+    	}
+    	System.out.println(userToken + "invalid");
+    	return null;
+    }
+    
+    
+    @GetMapping("/events/{eventId}")
+    public EventEntity findEvent(@PathVariable Integer eventId, @RequestHeader ("AuthToken") String userToken) throws IOException {
+    	if(userService.isTokenValid(userToken)) {
+    		return eventService.findEvent(eventId);
     	}
     	System.out.println(userToken + "invalid");
     	return null;

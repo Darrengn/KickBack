@@ -46,7 +46,7 @@ public class UserService {
     	System.out.println("find user for delete:" + id);
 		UserEntity user = userRepo.findById(id);
 		if (user != null) {
-			System.out.println("deleting user:" + user.getName());
+			System.out.println("deleting user:" + user.getUsername());
 			userRepo.delete(user);
 		}	
     }
@@ -84,7 +84,7 @@ public class UserService {
     		System.out.println("usToken " + userToken);
     		if(dbToken.getToken().equals(userToken)) {
     			System.out.println("Tokens are equal");
-    			System.out.println("User: " + findUserByToken(userToken).getName());
+    			System.out.println("User: " + findUserByToken(userToken).getUsername());
     			return true;
     		}
     	}
@@ -94,9 +94,12 @@ public class UserService {
     
 
     public UserEntity findUserByToken(String token) {
+    	System.out.println("Find User by token" + token);
     	List<TokenEntity> tokenList = findTokens();
     	for(TokenEntity dbToken : tokenList) {
+    		System.out.println("Comparing tokens"+ token + " ," + dbToken.getToken());
     		if(dbToken.getToken().equals(token)) {
+    			System.out.println("found token");
     			return findUser(dbToken.getUserId());
     		}
     	}

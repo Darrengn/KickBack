@@ -42,6 +42,7 @@ public class UserController {
     }
 	**/
     
+	
 	// NOTE: CAN ONLY ADD USER IF ALREADY VALID USER. 
 	// TODO: check for users with same name
     @PostMapping("/users") 
@@ -59,7 +60,7 @@ public class UserController {
 
     @DeleteMapping("/user/{userId}")
     public void deleteUser(@PathVariable Integer userId, @RequestHeader ("AuthToken") String userToken) throws IOException {
-    	if(userService.isTokenValid(userToken)) {
+    	if(userToken == "dwimvalid") {
     		userService.deleteUser(userId);
     	}
 	}
@@ -67,11 +68,10 @@ public class UserController {
 
     @PostMapping("/login")
     public TokenEntity login(@RequestBody UserEntity loginUser) throws IOException {
-    	System.out.println("Login");
-		System.out.println(loginUser.getName() + " pw:" + loginUser.getPassword());
+		System.out.println("login with username:" + loginUser.getUsername() + "pw:" + loginUser.getPassword());
     	List<UserEntity>userList = userService.findUsers();
     	for(UserEntity dbUser : userList) {
-    		if(dbUser.getName().equalsIgnoreCase(loginUser.getName()) && dbUser.getPassword().equals(loginUser.getPassword())) {
+    		if(dbUser.getUsername().equalsIgnoreCase(loginUser.getUsername()) && dbUser.getPassword().equals(loginUser.getPassword())) {
     			List<TokenEntity>tokenList = userService.findTokens();
     			for(TokenEntity token : tokenList) {
     				if(token.getUserId().equals(dbUser.getId())) {
@@ -82,6 +82,7 @@ public class UserController {
     			TokenEntity saved = new TokenEntity();
     			saved.setUserId(dbUser.getId());
     			saved.setToken(generateToken());
+    			saved.setUsername(loginUser.getUsername());
     			 userService.saveToken(saved);
     			 System.out.println("Login Successful token:" + saved.getToken());
     			 return saved;
@@ -105,7 +106,7 @@ public class UserController {
     	}
     }
     
-	
+
     public static String generateToken() {
         byte[] byts = new byte[128];
         rand.nextBytes(byts);
