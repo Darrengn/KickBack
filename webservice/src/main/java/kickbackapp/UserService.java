@@ -29,6 +29,10 @@ public class UserService {
         return tokenRepo.findAll();
     }
     
+    public TokenEntity findTokenByUserid(int userid) {
+        return tokenRepo.findByUserid(userid);
+    }
+    
 
     public UserEntity saveUser(UserEntity user) {
     	System.out.println("saveUser");
@@ -38,6 +42,12 @@ public class UserService {
 
     public UserEntity findUser(Integer id) {
     	UserEntity user = userRepo.findById(id);
+    	return user;
+    }
+    
+    public UserEntity findUserByName(String name) {
+    	UserEntity user = userRepo.findByName(name);
+    	user.setTableId(0);
     	return user;
     }
 
@@ -100,7 +110,7 @@ public class UserService {
     		System.out.println("Comparing tokens"+ token + " ," + dbToken.getToken());
     		if(dbToken.getToken().equals(token)) {
     			System.out.println("found token");
-    			return findUser(dbToken.getUserId());
+    			return findUser(dbToken.getUserid());
     		}
     	}
     	return null;

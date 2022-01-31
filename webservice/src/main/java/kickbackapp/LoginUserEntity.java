@@ -9,45 +9,48 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "token")
-public class TokenEntity implements Serializable {
+@Table(name = "loginuser")
+public class LoginUserEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)
     private Integer id;
+	
+	
+	@Column(nullable = false)
+    private String username;
+    
+	
+    @Column(nullable = false)
+    private String password;
 
-    @Column(nullable = false)
-    private String token;
-    
-    @Column(nullable = false)
-    private Integer userid;
-    
     
     public Integer getId() {
         return id;
     }
-
+    
     public void setId(Integer id) {
         this.id = id;
     }
+    
+    
+    public String getUsername() { 
+    	return username;
+    }
+    
+    public void setUsername(String username) {
+    	this.username = username;
+    }
 
 
-	public String getToken() {
-		return token;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	
-	public Integer getUserid() {
-		return userid;
-	}
-
-	public void setUserid(Integer userId) {
-		this.userid = userId;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

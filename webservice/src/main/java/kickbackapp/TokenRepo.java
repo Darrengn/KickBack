@@ -9,5 +9,5 @@ public interface TokenRepo extends CrudRepository<TokenEntity, Long> {
 
     List<TokenEntity> findAll();
     TokenEntity findById(Integer id);
-    
+    TokenEntity findByUserid(Integer userid);
 }

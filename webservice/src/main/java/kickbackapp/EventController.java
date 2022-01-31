@@ -33,6 +33,7 @@ public class EventController {
 
     @GetMapping("/events")
     public List<SimplifiedEvent> findEvents(@RequestHeader("AuthToken") String userToken) throws IOException {
+    	
     	System.out.println("Finding events for userToken" + userToken);
     	if(userService.isTokenValid(userToken)) {
 	    	List<EventEntity> eventList = eventService.findEvents();
