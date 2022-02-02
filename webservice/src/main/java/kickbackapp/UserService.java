@@ -102,7 +102,7 @@ public class UserService {
     	return false;
     }
     
-
+    //TODO can use TokenRepo FindById
     public UserEntity findUserByToken(String token) {
     	System.out.println("Find User by token" + token);
     	List<TokenEntity> tokenList = findTokens();

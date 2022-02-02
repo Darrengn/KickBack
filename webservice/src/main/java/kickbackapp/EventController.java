@@ -30,19 +30,20 @@ public class EventController {
 
     }
 
-
-    @GetMapping("/events")
+    
+    //TODO: Does not filter events without access
+    @GetMapping("/event")
     public List<SimplifiedEvent> findEvents(@RequestHeader("AuthToken") String userToken) throws IOException {
-    	
+    	/**
+    	 * Finds all events and returns a simplified list of them
+    	 */
     	System.out.println("Finding events for userToken" + userToken);
     	if(userService.isTokenValid(userToken)) {
 	    	List<EventEntity> eventList = eventService.findEvents();
 	    	List<SimplifiedEvent> simplifiedList = new ArrayList<SimplifiedEvent>();
 	    	for (int i = 0; i < eventList.size(); i++) {
 	    		EventEntity event = eventList.get(i);
-	    		//if(event.getOwner() == userService.findUserByToken(userToken).getName()) {
-	    			simplifiedList.add(new kickbackapp.SimplifiedEvent(event.getId(), event.getName(), event.getOwner()));
-	    		//}
+    			simplifiedList.add(new kickbackapp.SimplifiedEvent(event.getId(), event.getName(), event.getOwner()));
 	    	}
 	    	return simplifiedList;   
     	}
@@ -51,8 +52,11 @@ public class EventController {
     }
     
     
-    @GetMapping("/events/{eventId}")
+    @GetMapping("/event/{eventId}")
     public EventEntity findEvent(@PathVariable Integer eventId, @RequestHeader ("AuthToken") String userToken) throws IOException {
+    	/**
+    	 * Finds event given id and returns it
+    	 */
     	if(userService.isTokenValid(userToken)) {
     		return eventService.findEvent(eventId);
     	}
@@ -63,9 +67,11 @@ public class EventController {
 
     @PostMapping("/event")
     public EventEntity saveEvent( @RequestHeader("AuthToken") String userToken, @RequestBody EventEntity event) throws IOException {
+    	/**
+    	 * Saves event if all not nullable attributes are assigned
+    	 */
     	if(userService.isTokenValid(userToken)) {
     		event.setOwner(userService.findUserByToken(userToken).getName());
-	    	System.out.println("user of event" + event.getName());
 	    	EventEntity saved = eventService.saveEvent(event);
 	    	System.out.println("saving event");
 	        return saved;
@@ -75,11 +81,15 @@ public class EventController {
 		}
     }
 
-
+    
+    //TODO: change to check if user is owner and update PathVariable to proper id pass
 	@DeleteMapping("/event/{userId}")
-    public void deleteEvent(@PathVariable Integer userId, @RequestHeader ("AuthToken") String userToken) throws IOException {
-    	if(userService.isTokenValid(userToken)) {
-    		eventService.deleteEvent(userId);
+    public void deleteEvent(@PathVariable Integer eventid, @RequestHeader ("AuthToken") String userToken) throws IOException {
+    	/**
+    	 * Deletes event given ID
+    	 */
+		if(userService.isTokenValid(userToken)) {
+    		eventService.deleteEvent(eventid);
     	}
 	}
 }
