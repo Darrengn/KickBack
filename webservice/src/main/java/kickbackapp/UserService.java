@@ -39,6 +39,13 @@ public class UserService {
     	return userRepo.save(user);
     }
     
+    
+    public UserEntity updateUser(String token, UserEntity user) {
+    	UserEntity thisUser = this.findUserByToken(token);
+    	thisUser.updateValues(user);
+    	userRepo.save(thisUser);
+    	return thisUser;
+    }
 
     public UserEntity findUser(Integer id) {
     	UserEntity user = userRepo.findById(id);
@@ -47,18 +54,20 @@ public class UserService {
     
     public UserEntity findUserByName(String name) {
     	UserEntity user = userRepo.findByName(name);
-    	user.setTableId(0);
+    	user.setUserId(0);
     	return user;
     }
 
 
-    public void deleteUser(Integer id) {
+    public void deleteUser(Integer id) throws NullPointerException {
     	System.out.println("find user for delete:" + id);
 		UserEntity user = userRepo.findById(id);
 		if (user != null) {
-			System.out.println("deleting user:" + user.getUsername());
+			System.out.println("deleting user:" + user.getName());
 			userRepo.delete(user);
-		}	
+		} else {
+			throw new NullPointerException("User does not exist");
+		}
     }
     
 
@@ -94,7 +103,6 @@ public class UserService {
     		System.out.println("usToken " + userToken);
     		if(dbToken.getToken().equals(userToken)) {
     			System.out.println("Tokens are equal");
-    			System.out.println("User: " + findUserByToken(userToken).getUsername());
     			return true;
     		}
     	}
@@ -114,5 +122,9 @@ public class UserService {
     		}
     	}
     	return null;
+    }
+    
+    public int findUserIdByToken(String token) {
+    	return tokenRepo.findByToken(token).getUserid();
     }
 }

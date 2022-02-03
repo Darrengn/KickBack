@@ -25,6 +25,45 @@ public class EventEntity implements Serializable {
     @Column(nullable =false)
     private String owner;
     
+    @Column(nullable = false)
+    private boolean isInvite;
+    
+    @Column(nullable = true)
+    private int numGuests;
+    
+    @Column(nullable = true)
+    private String category;
+    
+    @Column(nullable = true)
+    private String contact;
+    
+    @Column(nullable = true)
+    private String description;
+    
+
+	public boolean isInvite() {
+		return isInvite;
+	}
+
+	public void setInvite(boolean isInvite) {
+		this.isInvite = isInvite;
+	}
+
+	public int getNumGuests() {
+		return numGuests;
+	}
+
+	public void setNumGuests(int numGuests) {
+		this.numGuests = numGuests;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	public Integer getId() {
 		return id;
@@ -49,6 +88,7 @@ public class EventEntity implements Serializable {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
+
 
 
 }

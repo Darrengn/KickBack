@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,26 +30,26 @@ public class UserController {
 
     }
 	
-    @GetMapping("/user/{username}")
-    public UserEntity getUser(@PathVariable String username) throws IOException {
+    @GetMapping("/user/{name}")
+    public UserEntity getUser(@PathVariable String name) throws IOException {
     	/**
     	 * Gets details of specific user given username
     	 */
     	System.out.println("Finding user by name");
     	try {
-    		UserEntity user = userService.findUserByName(username);
+    		UserEntity user = userService.findUserByName(name);
     		return user;
     	} catch(Exception e) {
-    		System.out.println("No user by name: " + username);
-    		return null;
+    		System.out.println("No user by name: " + name);
+    		return null; 
     	}
     }
     
 
-    @PostMapping("/saveuser") 
-    public String saveUser(@RequestBody LoginUserEntity user) throws IOException {
+    @PostMapping("/createlogin") 
+    public String createlogin(@RequestBody LoginUserEntity user) throws IOException {
     	/**
-    	 * Creates a new user if given a unique username and returns AuthToken
+    	 * Creates a new login user if given a unique username and returns AuthToken
     	 */
     	System.out.println("Saving new user");
     	if(user.getUsername() != null && user.getPassword() != null) {
@@ -64,6 +65,44 @@ public class UserController {
     	}
     	return "FAIL";
     }
+    
+    @PostMapping("/createuser")
+    public String createUser(@RequestBody UserEntity user, @RequestHeader ("AuthToken") String authToken) throws IOException {
+    	/**
+    	 * Creates a new user if given all required values
+    	 */
+    	if(userService.isTokenValid(authToken)) {
+    		try {
+    		if (userService.findUserByToken(authToken) == null) {
+    			user.setUserId(userService.findUserIdByToken(authToken));
+    			userService.saveUser(user);
+    			return "User Creation Successful";
+    		} else {
+    			System.out.println(userService.findUserByToken(authToken));
+    			throw new Exception("User is already created");
+    		}
+    		
+    		} catch(Exception e) {
+    			System.out.println(e);
+    			return "User Creation Failed";
+    		}
+    		
+    	}
+    	return null;
+    	
+    }
+    
+    @PutMapping("/user/{userId}")
+    public String updateUser(@RequestBody UserEntity user, @RequestHeader ("AuthToken") String userToken) throws IOException {
+    	if(userService.isTokenValid(userToken)) {
+    		userService.updateUser(userToken,user);
+    		return "User is updated";
+    	} else {
+    		System.out.println("User is not valid");
+    		return "User is not valid";
+    	}
+    }
+    
 
     @DeleteMapping("/user/{userId}")
     public void deleteUser(@PathVariable Integer userId, @RequestHeader ("AuthToken") String userToken) throws IOException {

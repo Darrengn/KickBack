@@ -19,26 +19,15 @@ public class UserEntity implements Serializable {
     @Column(nullable = false, unique = true)
     private Integer id;
 	
-	@Column(nullable = false)
-    private String username;
 
     @Column(nullable = false)
     private String name;
     
     @Column(nullable = false)
-    private Integer tableId;
+    private Integer userId;
     
-    @Column(nullable = false)
-    private String password;
-
     public Integer getId() {
         return id;
-    }
-    public String getUsername() { 
-    	return username;
-    }
-    public void setUsername(String username) {
-    	this.username = username;
     }
 
     public void setId(Integer id) {
@@ -51,8 +40,8 @@ public class UserEntity implements Serializable {
     }
     
 
-    public Integer getTableId() {
-        return tableId;
+    public Integer getUserId() {
+        return userId;
     }
 
 
@@ -61,17 +50,14 @@ public class UserEntity implements Serializable {
     }
     
 
-    public void setTableId(int tableId) {
-        this.tableId = tableId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
-
     
-    public String getPassword() {
-        return password;
-    }
-
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void updateValues(UserEntity updates) {
+		if(updates.getName() != null) {
+			this.setName(updates.getName());
+		}
+		
+	}
 }

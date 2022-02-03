@@ -83,7 +83,7 @@ public class EventController {
 
     
     //TODO: change to check if user is owner and update PathVariable to proper id pass
-	@DeleteMapping("/event/{userId}")
+	@DeleteMapping("/event/{eventId}")
     public void deleteEvent(@PathVariable Integer eventid, @RequestHeader ("AuthToken") String userToken) throws IOException {
     	/**
     	 * Deletes event given ID
