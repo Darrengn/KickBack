@@ -21,7 +21,7 @@ public class LoginUserService {
         return loginUserRepo.findAll();
     }
     
-    public LoginUserEntity findLoginUser(String username, String password) {
+    public LoginUserEntity findLoginUser(String username, String password) throws NullPointerException {
     	LoginUserEntity loginUser = loginUserRepo.findByUsernameAndPassword(username,password);
     	return loginUser;
     }

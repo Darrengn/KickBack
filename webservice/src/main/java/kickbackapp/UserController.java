@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-
 
 @RestController
 @CrossOrigin
@@ -30,24 +31,24 @@ public class UserController {
 
     }
 	
+    
     @GetMapping("/user/{name}")
-    public UserEntity getUser(@PathVariable String name) throws IOException {
+    public ResponseEntity getUser(@PathVariable String name) throws IOException {
     	/**
     	 * Gets details of specific user given username
     	 */
     	System.out.println("Finding user by name");
     	try {
     		UserEntity user = userService.findUserByName(name);
-    		return user;
+    		return ResponseEntity.status(HttpStatus.OK).body(user);
     	} catch(Exception e) {
-    		System.out.println("No user by name: " + name);
-    		return null; 
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No user by name " + name);
     	}
     }
     
 
     @PostMapping("/createlogin") 
-    public String createlogin(@RequestBody LoginUserEntity user) throws IOException {
+    public ResponseEntity<String> createlogin(@RequestBody LoginUserEntity user) throws IOException {
     	/**
     	 * Creates a new login user if given a unique username and returns AuthToken
     	 */
@@ -56,50 +57,65 @@ public class UserController {
 	    	if (!loginUserService.saveLoginUser(user)) {
 	    		System.out.println("Username is already taken");
 	    	} else { 
-	    		String token = login(user);
+	    		String token = login(user).getBody();
 	    		System.out.println(token);
-	    		return token;
+	    		return ResponseEntity.status(HttpStatus.OK).body(token);
 	    	}
     	} else {
     		System.out.println("Cannot create user with null username or password");
     	}
-    	return "FAIL";
+    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
     }
     
+    
     @PostMapping("/createuser")
-    public String createUser(@RequestBody UserEntity user, @RequestHeader ("AuthToken") String authToken) throws IOException {
+    public ResponseEntity<String> createUser(@RequestBody UserEntity user, @RequestHeader ("AuthToken") String authToken) throws IOException {
     	/**
     	 * Creates a new user if given all required values
     	 */
-    	if(userService.isTokenValid(authToken)) {
-    		try {
-    		if (userService.findUserByToken(authToken) == null) {
-    			user.setUserId(userService.findUserIdByToken(authToken));
-    			userService.saveUser(user);
-    			return "User Creation Successful";
-    		} else {
-    			System.out.println(userService.findUserByToken(authToken));
-    			throw new Exception("User is already created");
-    		}
-    		
-    		} catch(Exception e) {
-    			System.out.println(e);
-    			return "User Creation Failed";
-    		}
-    		
-    	}
-    	return null;
-    	
+    	user.setUserId(userService.findUserByToken(authToken).getId());
+		if (user.getUserId() == null) {
+			userService.saveUser(user);
+			return ResponseEntity.status(HttpStatus.OK).body("User Created");
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already created");
+		}    	
     }
     
+    
     @PutMapping("/user/{userId}")
-    public String updateUser(@RequestBody UserEntity user, @RequestHeader ("AuthToken") String userToken) throws IOException {
-    	if(userService.isTokenValid(userToken)) {
+    public ResponseEntity<String> updateUser(@RequestBody UserEntity user, @RequestHeader ("AuthToken") String userToken) throws IOException {
+    	try {
     		userService.updateUser(userToken,user);
-    		return "User is updated";
-    	} else {
-    		System.out.println("User is not valid");
-    		return "User is not valid";
+    		return ResponseEntity.status(HttpStatus.OK).body(null);
+    	} catch (NullPointerException e){
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    	}
+    }
+    
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginUserEntity loginUser) throws IOException {
+    	/**
+    	 * Logs in user given valid username and password and returns AuthToken
+    	 */
+    	try {
+			System.out.println("login with username:" + loginUser.getUsername());
+			int userId = loginUserService.findLoginUser(loginUser.getUsername(), loginUser.getPassword()).getId();
+			
+    		TokenEntity token = userService.findTokenByUserid(userId);
+    		if(token != null) {
+				System.out.println("User already has a token");
+    		} else {
+    			token = new TokenEntity(); token.setUserid(userId); token.setToken(generateToken());
+    			userService.saveToken(token);
+    		}
+    		
+			System.out.println("Login Successful token:" + token.getToken());
+			return ResponseEntity.status(HttpStatus.OK).body(token.getToken());
+    	} catch(NullPointerException e) {
+    		System.out.println("Invalid Login");
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     	}
     }
     
@@ -114,42 +130,10 @@ public class UserController {
     	}
 	}
     
-
-    @PostMapping("/login")
-    public String login(@RequestBody LoginUserEntity loginUser) throws IOException {
-    	/**
-    	 * Logs in user given valid username and password and returns AuthToken
-    	 */
-    	try {
-			System.out.println("login with username:" + loginUser.getUsername() + "pw:" + loginUser.getPassword());
-			int userId = loginUserService.findLoginUser(loginUser.getUsername(), loginUser.getPassword()).getId();
-    		TokenEntity token = userService.findTokenByUserid(userId);
-    		if(token != null) {
-				System.out.println("User already has a token");
-    		} else {
-    			token = new TokenEntity(); token.setUserid(userId); token.setToken(generateToken());
-    			userService.saveToken(token);
-    		}
-			System.out.println("Login Successful token:" + token.getToken());
-			return token.getToken();
-    	} catch(Exception e) {
-    		System.out.println("user is invalid");
-    		return null;
-    	}
-    }
     
-
     @DeleteMapping("/login/{token}")
-    public void deleteTokenByString(@PathVariable String token, @RequestHeader ("AuthToken") String userToken) throws IOException{
+    public void deleteTokenByString(@PathVariable String token, @RequestHeader ("AuthToken") String userToken) throws IOException {
     	userService.deleteTokenByString(userToken);
-    }
-    
-
-    @DeleteMapping("/token/{tokenId}")
-    public void deleteToken(@PathVariable Integer tokenId, @RequestHeader ("AuthToken") String userToken) throws IOException {
-    	if(userService.isTokenValid(userToken)) {
-    		userService.deleteToken(tokenId);
-    	}
     }
     
 

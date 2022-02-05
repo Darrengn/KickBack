@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,63 +35,67 @@ public class EventController {
     
     //TODO: Does not filter events without access
     @GetMapping("/event")
-    public List<SimplifiedEvent> findEvents(@RequestHeader("AuthToken") String userToken) throws IOException {
+    public ResponseEntity findEvents(@RequestHeader("AuthToken") String authToken) throws IOException {
     	/**
     	 * Finds all events and returns a simplified list of them
     	 */
-    	System.out.println("Finding events for userToken" + userToken);
-    	if(userService.isTokenValid(userToken)) {
-	    	List<EventEntity> eventList = eventService.findEvents();
+    	try {
+    		List<EventEntity> eventList = eventService.findEvents();
 	    	List<SimplifiedEvent> simplifiedList = new ArrayList<SimplifiedEvent>();
 	    	for (int i = 0; i < eventList.size(); i++) {
 	    		EventEntity event = eventList.get(i);
     			simplifiedList.add(new kickbackapp.SimplifiedEvent(event.getId(), event.getName(), event.getOwner()));
 	    	}
-	    	return simplifiedList;   
+	    	return ResponseEntity.status(HttpStatus.OK).body(simplifiedList);
+    	} catch (NullPointerException e) {
+    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
     	}
-    	System.out.println(userToken + "invalid");
-    	return null;
     }
     
     
     @GetMapping("/event/{eventId}")
-    public EventEntity findEvent(@PathVariable Integer eventId, @RequestHeader ("AuthToken") String userToken) throws IOException {
+    public ResponseEntity findEvent(@PathVariable Integer eventId, @RequestHeader ("AuthToken") String userToken) throws IOException {
     	/**
     	 * Finds event given id and returns it
     	 */
-    	if(userService.isTokenValid(userToken)) {
-    		return eventService.findEvent(eventId);
+    	try {
+    		userService.findUserByToken(userToken);
+	    	return ResponseEntity.status(HttpStatus.OK).body(eventService.findEvent(eventId));
+    	} catch (NullPointerException e) {
+    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
     	}
-    	System.out.println(userToken + "invalid");
-    	return null;
     }
     
 
     @PostMapping("/event")
-    public EventEntity saveEvent( @RequestHeader("AuthToken") String userToken, @RequestBody EventEntity event) throws IOException {
+    public ResponseEntity saveEvent( @RequestHeader("AuthToken") String userToken, @RequestBody EventEntity event) throws IOException {
     	/**
     	 * Saves event if all not nullable attributes are assigned
     	 */
-    	if(userService.isTokenValid(userToken)) {
+    	try {
+    		userService.findUserByToken(userToken);
     		event.setOwner(userService.findUserByToken(userToken).getName());
 	    	EventEntity saved = eventService.saveEvent(event);
 	    	System.out.println("saving event");
-	        return saved;
-    	} else {
-    	System.out.println("User not valid");
-    	return null;
-		}
+	    	return ResponseEntity.status(HttpStatus.OK).body(saved);
+    	} catch (NullPointerException e) {
+    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+    	}
     }
 
     
     //TODO: change to check if user is owner and update PathVariable to proper id pass
 	@DeleteMapping("/event/{eventId}")
-    public void deleteEvent(@PathVariable Integer eventid, @RequestHeader ("AuthToken") String userToken) throws IOException {
+    public ResponseEntity<String> deleteEvent(@PathVariable Integer eventid, @RequestHeader ("AuthToken") String userToken) throws IOException {
     	/**
     	 * Deletes event given ID
     	 */
-		if(userService.isTokenValid(userToken)) {
-    		eventService.deleteEvent(eventid);
-    	}
+		try {
+			userService.findUserByToken(userToken);
+			eventService.deleteEvent(eventid);
+			return ResponseEntity.status(HttpStatus.OK).body("User Created");
+		} catch (NullPointerException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+		}
 	}
 }
