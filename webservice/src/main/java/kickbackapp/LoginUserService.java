@@ -23,6 +23,7 @@ public class LoginUserService {
     
     public LoginUserEntity findLoginUser(String username, String password) throws NullPointerException {
     	LoginUserEntity loginUser = loginUserRepo.findByUsernameAndPassword(username,password);
+    	System.out.println("Found login user" + loginUser.getId());
     	return loginUser;
     }
     

@@ -15,19 +15,19 @@ public class FriendEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = false, unique = true)
-	private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
+    private Integer id;
 
-	@Column(nullable = false)
-	private int userId;
+    @Column(nullable = false)
+    private int userId;
+    
+    @Column(nullable = false)
+    private int friendId;
 
-	@Column(nullable = false)
-	private int friendId;
-
-	@Column(nullable = true)
-	private String messages;
-
+    @Column(nullable = true)
+    private String messages;
+    
 	public int getUserId() {
 		return userId;
 	}
@@ -43,4 +43,15 @@ public class FriendEntity implements Serializable {
 	public void setFriendId(int friendId) {
 		this.friendId = friendId;
 	}
+	
+	public String getMessages() {
+		return messages;
+	}
+
+	public void addMessage(int id, String message) {
+		this.messages += String.format("\n%d,%s", id, message);
+		System.out.println(this.messages);
+	}
+
+
 }
