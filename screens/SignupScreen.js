@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, TextInput, Picker, ScrollView, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, Picker, ScrollView, KeyboardAvoidingView, TouchableOpacity, SafeAreaView, StatusBar} from 'react-native';
 import { auth } from '../firebase'
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const SignupScreen = ({navigation}) => {
     const [first, onChangeFirst] = React.useState('');
@@ -24,18 +25,21 @@ const SignupScreen = ({navigation}) => {
     }
 
     return (
-        <View style={{flex:1,}}>
-            <View style = {{flex: '7%', alignItems:'flex-start', justifyContent:'flex-end'}}>
-                <Button
-                    style = {{}}
-                    title="  Back"
-                    onPress={() => navigation.navigate("Onboarding")} // needs to change to touchable and needs symbol
-                />
-            </View>
+        <View style={{flex:1, backgroundColor:'#EDF6F9'}}>
+
+            <SafeAreaView>
+                <StatusBar barStyle="dark-content"/>
+            </SafeAreaView>
+
+            <TouchableOpacity onPress={() => navigation.navigate("Onboarding")}
+                style = {{flex: '4%', alignItems: 'flex-end', justifyContent: 'flex-start', flexDirection:'row',}}>
+                <View style = {{width: 20}}></View>
+                <Icon name="arrow-back-outline" size={30} color='black' />
+            </TouchableOpacity>
 
             <KeyboardAvoidingView
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
-                    style = {[styles.container, {flex: '93%', justifyContent:'flex-start'}]}
+                    style = {[styles.container, {flex: '96%', justifyContent:'flex-start'}]}
             >
                 <Text style = {{fontSize: 40, textAlign:'center', alignSelf:'center'}}>Create Account</Text>
                 <Button style ={styles.input}
@@ -123,13 +127,14 @@ const SignupScreen = ({navigation}) => {
                         secureTextEntry
                     />
 
-                    <TouchableWithoutFeedback onPress={handleSignUp}>
+                    <TouchableOpacity onPress={handleSignUp}>
                         <View style = {{backgroundColor: 'black', width: 150, height:50, alignSelf: 
                             'center', alignItems:'center', justifyContent:'center', borderRadius:'10'}}>
                             
                             <Text style= {{color: 'white', fontSize: 20 }}>Create Account</Text>
                         </View>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
+                    <View style = {{height:10}}></View>
 
                 </ScrollView>
             </KeyboardAvoidingView>
@@ -151,6 +156,12 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 2,
         padding: 10,
-        fontSize:14
+        fontSize:14,
+        borderRadius:5,
+        shadowOffset: {
+            width: 5,
+            height: 5,
+          },
+        shadowOpacity:0.1,
       },
   });
