@@ -102,11 +102,11 @@ public class UserController {
     	try {
 			System.out.println("login with username:" + loginUser.getUsername());
 			int userId = loginUserService.findLoginUser(loginUser.getUsername(), loginUser.getPassword()).getId();
-			
-    		TokenEntity token = userService.findTokenByUserid(userId);
-    		if(token != null) {
+			TokenEntity token = null;
+			try {
+				token = userService.findTokenByUserid(userId);
 				System.out.println("User already has a token");
-    		} else {
+			} catch(NullPointerException e) {
     			token = new TokenEntity(); token.setUserid(userId); token.setToken(generateToken());
     			userService.saveToken(token);
     		}

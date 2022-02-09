@@ -43,4 +43,15 @@ public class FriendEntity implements Serializable {
 	public void setFriendId(int friendId) {
 		this.friendId = friendId;
 	}
+	
+	public String getMessages() {
+		return messages;
+	}
+
+	public void addMessage(int id, String message) {
+		this.messages += String.format("\n%d,%s", id, message);
+		System.out.println(this.messages);
+	}
+
+
 }
