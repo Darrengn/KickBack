@@ -11,13 +11,13 @@ public interface RelationRepo extends CrudRepository<RelationEntity, Long> {
 
     RelationEntity findById(Integer id);
 
-    RelationEntity findByName(String name);
+    //RelationEntity findByName(String name);
 
-    List<RelationEntity> findDistinctByFrom(Integer from);
+    List<RelationEntity> findDistinctByFrom1(Integer from);
 
-    List<RelationEntity> findDistinctByTo(Integer to);
+    List<RelationEntity> findDistinctByTo1(Integer to);
 
-    RelationEntity findByFromAndTo(Integer from, Integer to);
+    RelationEntity findByFrom1AndTo1(Integer from, Integer to);
 
     /*
      * @Query("SELECT r FROM Request r WHERE r.from = :from"); List<RelationEntity>

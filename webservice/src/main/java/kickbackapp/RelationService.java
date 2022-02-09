@@ -31,7 +31,7 @@ public class RelationService {
     public List<RelationEntity> findIncoming(Integer id) {
         System.out.println("findIncomingRelations");
 
-        List<RelationEntity> relations = relationRepo.findDistinctByTo(id);
+        List<RelationEntity> relations = relationRepo.findDistinctByTo1(id);
 
         return relations;
     }
@@ -39,7 +39,7 @@ public class RelationService {
     public List<RelationEntity> findOutgoing(Integer id) {
         System.out.println("findIncomingRelations");
 
-        List<RelationEntity> relations = relationRepo.findDistinctByFrom(id);
+        List<RelationEntity> relations = relationRepo.findDistinctByFrom1(id);
 
         return relations;
     }
@@ -47,7 +47,7 @@ public class RelationService {
     public RelationEntity findThread(Integer from, Integer to) {
         System.out.println("findIncomingRelations");
 
-        RelationEntity relation = relationRepo.findByFromAndTo(from, to);
+        RelationEntity relation = relationRepo.findByFrom1AndTo1(from, to);
 
         return relation;
     }

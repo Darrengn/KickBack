@@ -128,7 +128,7 @@ public class RelationController {
 		}
 	}
 
-	@PutMapping("/relation/${id}/accept")
+	@PutMapping("/relation/{id}/accept")
 	public ResponseEntity<String> updateRequest(@RequestHeader("AuthToken") String authToken, @PathVariable Integer id)
 			throws IOException {
 		/**
@@ -157,7 +157,7 @@ public class RelationController {
 		}
 	}
 
-	@DeleteMapping("/relation/${id}")
+	@DeleteMapping("/relation/{id}")
 	public ResponseEntity<String> deleteRequest(@RequestHeader("AuthToken") String authToken, @PathVariable Integer id)
 			throws IOException {
 		/**

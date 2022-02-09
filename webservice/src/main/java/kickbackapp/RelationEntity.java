@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "event")
+@Table(name = "relation")
 public class RelationEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -23,10 +23,10 @@ public class RelationEntity implements Serializable {
 	private Integer id;
 
 	@Column(nullable = false)
-	private Integer from;
+	private Integer from1;
 
 	@Column(nullable = false)
-	private Integer to;
+	private Integer to1;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
@@ -37,11 +37,11 @@ public class RelationEntity implements Serializable {
 	}
 
 	public Integer getFrom() {
-		return this.from;
+		return this.from1;
 	}
 
 	public Integer getTo() {
-		return this.to;
+		return this.to1;
 	}
 
 	public Status getStatus() {
@@ -53,11 +53,11 @@ public class RelationEntity implements Serializable {
 	}
 
 	public void setFrom(Integer id) {
-		this.from = id;
+		this.from1 = id;
 	}
 
 	public void setTo(Integer id) {
-		this.to = id;
+		this.to1 = id;
 	}
 
 	public void setStatus(Status status) {
