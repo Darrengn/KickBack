@@ -1,7 +1,9 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:11.0.14-oraclelinux8
 
-ARG JAR_FILE=target/*.jar
+VOLUME /tmp
 
-COPY ${JAR_FILE} app.jar
+ARG JAR_FILE
 
-ENTRYPOINT ["java","-jar","/.jar"]
+COPY build/libs/*.jar app.jar
+
+ENTRYPOINT ["java","-jar","/app.jar"]
