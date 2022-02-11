@@ -1,6 +1,10 @@
 package kickbackapp;
 
 import javax.annotation.PostConstruct;
+
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -19,5 +23,16 @@ public class Main {
     
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
+        /*
+        JUnitCore junit = new JUnitCore();
+        Class tests = LoginTest.class;
+        Result result = junit.run(tests);
+        for (Failure failure : result.getFailures()) {
+        	System.out.println("Failed" +  failure.toString());
+        }
+        */
+        
+        
+        
     }
 }
