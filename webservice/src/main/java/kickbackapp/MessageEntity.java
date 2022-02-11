@@ -34,7 +34,7 @@ public class MessageEntity implements Serializable {
 	private int groupId;
 
     @Column(nullable = false)
-    private String sender;
+    private int sender;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -60,11 +60,11 @@ public class MessageEntity implements Serializable {
 		this.groupId = groupId;
 	}
 
-	public String getSender() {
+	public int getSender() {
 		return sender;
 	}
 
-	public void setSender(String sender) {
+	public void setSender(int sender) {
 		this.sender = sender;
 	}
 	

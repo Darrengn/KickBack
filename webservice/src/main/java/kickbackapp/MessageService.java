@@ -1,6 +1,7 @@
 package kickbackapp;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,23 +23,37 @@ public class MessageService {
     	/**
     	 * Returns a list of all groups user is a part of and who is in each group
     	 */
-    	return null;
-    }
+    	
+    	return groupRepo.findByUserId(userId);
+	}
     
     
-    public List<MessageEntity> findMessages(int userId, int groupId) {
+    public List<MessageEntity> findMessages(int userId, int groupId) throws NullPointerException {
     	/**
     	 * Returns a list of all messages from a group
     	 * Only returns messages from unblocked users?
     	 */
-    	return null;
+    	if(groupRepo.findByUserIdAndGroupId(userId, groupId) != null) {
+    		System.out.println("User is part of group");
+    		return messageRepo.findByGroupId(groupId);
+    	} else {
+    		throw new NullPointerException("User is not part of group");
+    	}
     }
     
-    public int createGroup(int userId, String initialMessage, List members) {
+    public int createGroup(int userId, String initialMessage, List<Integer> members) {
     	/**
     	 * Creates a new group with members and returns the groupId
     	 * 
     	 */
+    	/*
+    	for(int userid: members) {
+    		MessageGroupEntity mem = new MessageGroupEntity();
+    		mem.setGroupId(userId); mem.setUserId(userid);
+    		groupRepo.save(mem)
+    	}
+    	groupRepo.save(null);
+    	*/
     	return -1;
     }
     
@@ -46,22 +61,47 @@ public class MessageService {
     	/**
     	 * Adds user of addedId to group of groupId
     	 */
-    	return null;
-    	
+    	if(groupRepo.findByUserIdAndGroupId(userId, groupId) != null) {
+    		System.out.println("User is a part of group");
+    		MessageGroupEntity mem = new MessageGroupEntity();
+    		mem.setGroupId(groupId); mem.setUserId(userId);
+    		groupRepo.save(mem);
+    		return mem;
+    	} else {
+    		throw new NullPointerException("User is not part of group");
+    	}	
     }
     
     public MessageEntity sendMessage(int userId, int groupId, String message) {
     	/**
     	 * Adds message to group after checking if sender is part of group
     	 */
-    	return null;
+    	if(groupRepo.findByUserIdAndGroupId(userId, groupId) != null) {
+    		System.out.println("User is a part of group");
+    		MessageEntity msg = new MessageEntity();
+    		msg.setSender(userId); msg.setGroupId(groupId); msg.setMessage(message);
+    		messageRepo.save(msg);
+    		return msg;
+    	} else {
+    		throw new NullPointerException("User is not part of group");
+    	}	
     }
     
     public List<Integer> findUsersInMessage(int userId, int groupId) {
     	/**
     	 * Returns a list of all user ids in a MessageGroup
     	 */
-    	return null;
+    	if(groupRepo.findByUserIdAndGroupId(userId, groupId) != null) {
+    		System.out.println("User is a part of group");
+    		List<MessageGroupEntity> groupList = groupRepo.findByGroupId(groupId);
+    		List<Integer> userList = new ArrayList<Integer>();
+    		for(MessageGroupEntity member: groupList) {
+    			userList.add(member.getUserId());
+    		}
+    		return userList;
+    	} else {
+    		throw new NullPointerException("User is not part of group");
+    	}	
     }
     
     public void kickMember(int userId, int groupId, int kickedId) {
@@ -78,6 +118,12 @@ public class MessageService {
     	 * Deletes userId from MessageGroup 
     	 * checks if last user in Group before deleting messsages
     	 */
+    	if(groupRepo.findByUserIdAndGroupId(userId, groupId) != null) {
+    		System.out.println("User is a part of group");
+
+    	} else {
+    		throw new NullPointerException("User is not part of group");
+    	}	
     }
     
     
