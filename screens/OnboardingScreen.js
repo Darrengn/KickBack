@@ -17,10 +17,6 @@ const OnboardingScreen = ({navigation}) => {
                 title="Home"
                 onPress={() => navigation.navigate("Home")}
             />
-            <Button
-                title="Test"
-                onPress={() => navigation.navigate("Test")}
-            />
         </View>
     );
 }
