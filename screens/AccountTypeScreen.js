@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, Text, View, Button} from 'react-native';
 const AccountTypeScreen = ({navigation}) => {
     return (
         <View style={{flex:1,}}>
@@ -7,14 +7,14 @@ const AccountTypeScreen = ({navigation}) => {
             <View style={styles.container}>
                 <Button
                     title="PERSONAL"
-                    onPress={() => navigation.navigate("PersonalSignUp")}//whatever the personal sign up name is
+                    onPress={() => navigation.navigate("Signup")}//whatever the personal sign up name is
                 />
             </View>
             <Text style={styles.underText}>For individual users who are attending and hosting events around campus.</Text>
             <View style={styles.container}>
                 <Button
                     title="GROUP"
-                    onPress={() => navigation.navigate("GroupSignUp")}//whatever the group sign up name is
+                    onPress={() => navigation.navigate("Signup")}//whatever the group sign up name is
                 />
             </View>
             <Text style={styles.underText}>For organizations such as fraternities, sports teams, and club pages who will be hosting events.</Text>
@@ -35,15 +35,12 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 7,
         fontSize: 2,
-        fontWeight: bold,
+        fontWeight: 'bold',
     },
     title: {
         marginTop: 16,
         paddingTop: 25,
-        fontStyle: normal, //change font to whatever title font should be
-        fontSize: 50,
-        fontWeight: 700,
-        alignItems: 'center',
+        fontSize: 50
         
     },
     underText: {

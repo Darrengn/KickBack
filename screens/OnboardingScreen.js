@@ -11,7 +11,7 @@ const OnboardingScreen = ({navigation}) => {
             />
             <Button
                 title="Sign Up"
-                onPress={() => navigation.navigate("Signup")}
+                onPress={() => navigation.navigate("AccountType")}
             />
             <Button
                 title="Home"
