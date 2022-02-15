@@ -1,4 +1,4 @@
-package kickbackapp;
+package kickbackapp.Entity;
 
 import java.io.Serializable;
 import javax.persistence.Column;

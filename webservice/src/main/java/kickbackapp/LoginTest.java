@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kickbackapp.Entity.UserEntity;
+import kickbackapp.Service.UserService;
+
 import java.util.List;
 @Service
 public class LoginTest {

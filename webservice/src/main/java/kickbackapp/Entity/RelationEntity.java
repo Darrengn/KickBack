@@ -1,4 +1,4 @@
-package kickbackapp;
+package kickbackapp.Entity;
 
 import kickbackapp.Status;
 

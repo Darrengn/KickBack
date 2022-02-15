@@ -1,4 +1,4 @@
-package kickbackapp;
+package kickbackapp.Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
-import kickbackapp.SimplifiedEvent;
+
+import kickbackapp.NotFoundException;
+import kickbackapp.Entity.MessageGroupRelationEntity;
+import kickbackapp.Entity.SimplifiedEvent;
+import kickbackapp.Service.EventService;
+import kickbackapp.Service.MessageService;
+import kickbackapp.Service.UserService;
 
 @RestController
 @CrossOrigin

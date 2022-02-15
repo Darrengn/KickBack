@@ -1,4 +1,4 @@
-package kickbackapp;
+package kickbackapp.Controller;
 
 import java.io.IOException;
 import java.util.Random;
@@ -15,6 +15,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+
+import kickbackapp.NotFoundException;
+import kickbackapp.Entity.LoginUserEntity;
+import kickbackapp.Entity.TokenEntity;
+import kickbackapp.Entity.UserEntity;
+import kickbackapp.Service.LoginUserService;
+import kickbackapp.Service.UserService;
 
 @RestController
 @CrossOrigin

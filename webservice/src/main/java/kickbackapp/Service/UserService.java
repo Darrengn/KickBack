@@ -1,9 +1,15 @@
-package kickbackapp;
+package kickbackapp.Service;
 
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import kickbackapp.NotFoundException;
+import kickbackapp.Entity.TokenEntity;
+import kickbackapp.Entity.UserEntity;
+import kickbackapp.Repository.TokenRepo;
+import kickbackapp.Repository.UserRepo;
 
 @Service
 public class UserService {

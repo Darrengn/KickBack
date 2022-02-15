@@ -1,4 +1,4 @@
-package kickbackapp;
+package kickbackapp.Service;
 
 
 import java.util.ArrayList;
@@ -6,6 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import kickbackapp.NotFoundException;
+import kickbackapp.Entity.MessageEntity;
+import kickbackapp.Entity.MessageGroupEntity;
+import kickbackapp.Entity.MessageGroupRelationEntity;
+import kickbackapp.Repository.MessageGroupRelationRepo;
+import kickbackapp.Repository.MessageGroupRepo;
+import kickbackapp.Repository.MessageRepo;
 
 @Service
 public class MessageService {

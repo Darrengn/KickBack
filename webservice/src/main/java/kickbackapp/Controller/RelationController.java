@@ -1,4 +1,4 @@
-package kickbackapp;
+package kickbackapp.Controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+
+import kickbackapp.Status;
+import kickbackapp.Entity.RelationEntity;
+import kickbackapp.Service.RelationService;
+import kickbackapp.Service.UserService;
 
 @RestController
 @CrossOrigin

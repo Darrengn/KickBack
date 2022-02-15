@@ -1,4 +1,4 @@
-package kickbackapp;
+package kickbackapp.Entity;
 
 public class SimplifiedEvent {
 	private int id;
