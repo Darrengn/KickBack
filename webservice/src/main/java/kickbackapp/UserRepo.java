@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface UserRepo extends CrudRepository<UserEntity, Long> {
 
     List<UserEntity> findAll();
-    UserEntity findById(Integer id);
+    UserEntity findByUserId(Integer userId);
     UserEntity findByName(String name);
     
 }

@@ -16,41 +16,35 @@ public class UserService {
     public UserService() {
 
     }
-
-
-    public List<UserEntity> findUsers() {
-    	System.out.println("findUsers");
-        return userRepo.findAll();
-    }
     
-    
-    public UserEntity findUserById(Integer id) throws NullPointerException {
-    	UserEntity user = userRepo.findById(id);
+    public UserEntity findUserById(Integer id) throws NotFoundException {
+    	UserEntity user = userRepo.findByUserId(id);
     	if (user != null) {
     		return user;
     	} else {
-    		throw new NullPointerException("id is invalid");
+    		throw new NotFoundException("id is invalid");
     	}
     }
     
-    
-    public UserEntity findUserByName(String name) throws NullPointerException {
+    public UserEntity findUserByName(String name) throws NotFoundException {
+    	System.out.println("find user by" + name);
     	UserEntity user = userRepo.findByName(name);
     	if(user != null) {
 	    	user.setUserId(0);
 	    	return user;
     	} else {
-    		throw new NullPointerException("name is invalid");
+    		throw new NotFoundException("name is invalid");
     	}
     }
     
 
-    public UserEntity findUserByToken(String token) throws NullPointerException {
+    public UserEntity findUserByToken(String token) throws NotFoundException {
+    	System.out.println("Find user by token");
     	TokenEntity tokenEntity = tokenRepo.findByToken(token);
     	if (tokenEntity != null) {
     		return findUserById(tokenEntity.getUserid());
     	} else {
-    		throw new NullPointerException("Token not valid");
+    		throw new NotFoundException("Token not valid");
     	}
     }
    
@@ -61,24 +55,26 @@ public class UserService {
     }
     
     
-    public TokenEntity findTokenByUserid(int userid) throws NullPointerException {
-        TokenEntity  token = tokenRepo.findByUserid(userid);
+    public TokenEntity findTokenByUserId(int userId) throws NotFoundException {
+        TokenEntity  token = tokenRepo.findByUserid(userId);
         if( token != null) {
         	return token;
         } else {
-        	throw new NullPointerException("User id is invalid");
+        	throw new NotFoundException("User id is invalid");
         }
     }
     
-
-    public UserEntity updateUser(String token, UserEntity user) throws NullPointerException {
+    /**
+     * Updates user with new values but ignores null values
+     */
+    public UserEntity updateUser(String token, UserEntity user) throws NotFoundException {
     	UserEntity thisUser = this.findUserByToken(token);
     	if (thisUser != null) {
 	    	thisUser.updateValues(user);
 	    	userRepo.save(thisUser);
 	    	return thisUser;
     	} else {
-    		throw new NullPointerException("User is not valid");
+    		throw new NotFoundException("User is not valid");
     	}
     }
 
@@ -94,17 +90,18 @@ public class UserService {
     	return userRepo.save(user);
     }
     
-
-    public void deleteUser(Integer id) throws NullPointerException {
+    /*
+    public void deleteUser(Integer id) throws NotFoundException {
     	System.out.println("find user for delete:" + id);
-		UserEntity user = userRepo.findById(id);
+		UserEntity user = userRepo.findByUserId(id);
 		if (user != null) {
 			System.out.println("deleting user:" + user.getName());
 			userRepo.delete(user);
 		} else {
-			throw new NullPointerException("User does not exist");
+			throw new NotFoundException("User does not exist");
 		}
     }
+    */
     
     
     public void deleteToken(Integer id) {

@@ -2,6 +2,7 @@ package kickbackapp;
 
 
 import java.util.ArrayList;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,116 +14,136 @@ public class MessageService {
 	private MessageRepo messageRepo;
 	
 	@Autowired 
+	private MessageGroupRelationRepo relationRepo;
+	
+	@Autowired
 	private MessageGroupRepo groupRepo;
 
     public MessageService() {
 
     }
     
-    public List<MessageGroupEntity> findMessageGroups(int userId) {
-    	/**
-    	 * Returns a list of all groups user is a part of and who is in each group
-    	 */
-    	
-    	return groupRepo.findByUserId(userId);
+	/**
+	 * Returns a list of all groups user is a part of
+	 */
+    public List<MessageGroupRelationEntity> findMessageRelations(int userId) {    	
+    	return relationRepo.findByUserId(userId);
 	}
     
-    
-    public List<MessageEntity> findMessages(int userId, int groupId) throws NullPointerException {
-    	/**
-    	 * Returns a list of all messages from a group
-    	 * Only returns messages from unblocked users?
-    	 */
-    	if(groupRepo.findByUserIdAndGroupId(userId, groupId) != null) {
+	/**
+	 * Returns a list of all messages from a group
+	 * Only returns messages from unblocked users?
+	 */
+    public List<MessageEntity> findMessages(int userId, int groupId) throws NotFoundException {
+    	if(relationRepo.findByUserIdAndGroupId(userId, groupId) != null) {
     		System.out.println("User is part of group");
     		return messageRepo.findByGroupId(groupId);
     	} else {
-    		throw new NullPointerException("User is not part of group");
+    		throw new NotFoundException("User is not part of group");
     	}
     }
     
-    public int createGroup(int userId, String initialMessage, List<Integer> members) {
-    	/**
-    	 * Creates a new group with members and returns the groupId
-    	 * 
-    	 */
-    	/*
-    	for(int userid: members) {
-    		MessageGroupEntity mem = new MessageGroupEntity();
-    		mem.setGroupId(userId); mem.setUserId(userid);
-    		groupRepo.save(mem)
+	/**
+	 * Creates a new group with members and returns the groupId
+	 * 
+	 */
+    public int createGroup(int userId, String name, List<Integer> members) {
+    	MessageGroupEntity newGroup = new MessageGroupEntity();
+    	newGroup.setName(name);
+    	newGroup.setOwner(userId);
+    	int groupId = groupRepo.save(newGroup).getId();
+    	System.out.println("Creating new group of id"+ groupId);
+    	for(Integer memberId: members) {
+    		MessageGroupRelationEntity relation = new MessageGroupRelationEntity();
+    		relation.setGroupId(groupId);
+    		relation.setUserId(memberId);
+    		relationRepo.save(relation);
+    		System.out.println("Adding member relation" + memberId);
     	}
-    	groupRepo.save(null);
-    	*/
-    	return -1;
+    	return groupId;
     }
     
-    public MessageGroupEntity addToGroup(int userId, int groupId, int addedId) {
-    	/**
-    	 * Adds user of addedId to group of groupId
-    	 */
-    	if(groupRepo.findByUserIdAndGroupId(userId, groupId) != null) {
-    		System.out.println("User is a part of group");
-    		MessageGroupEntity mem = new MessageGroupEntity();
-    		mem.setGroupId(groupId); mem.setUserId(userId);
-    		groupRepo.save(mem);
-    		return mem;
+	/**
+	 * Adds user of addedId to group of groupId
+	 */
+    public MessageGroupRelationEntity addToGroup(int userId, int groupId, int addedId) throws NotFoundException {
+    	if (groupRepo.findById(groupId) != null) {
+    		if(relationRepo.findByUserIdAndGroupId(userId, groupId) != null) {
+	    		System.out.println("User is a part of group");
+	    		MessageGroupRelationEntity mem = new MessageGroupRelationEntity();
+	    		mem.setGroupId(groupId);
+	    		mem.setUserId(userId);
+	    		relationRepo.save(mem);
+	    		return mem;
+    		}else {
+	    		throw new NotFoundException("User is not part of group");
+	    	}	
     	} else {
-    		throw new NullPointerException("User is not part of group");
-    	}	
+    		throw new NotFoundException("No such group with id of " + groupId);
+    	}
     }
     
-    public MessageEntity sendMessage(int userId, int groupId, String message) {
-    	/**
-    	 * Adds message to group after checking if sender is part of group
-    	 */
-    	if(groupRepo.findByUserIdAndGroupId(userId, groupId) != null) {
-    		System.out.println("User is a part of group");
-    		MessageEntity msg = new MessageEntity();
-    		msg.setSender(userId); msg.setGroupId(groupId); msg.setMessage(message);
-    		messageRepo.save(msg);
-    		return msg;
+	/**
+	 * Adds message to group after checking if sender is part of group
+	 */
+    public MessageEntity sendMessage(int userId, int groupId, String message) throws NotFoundException {
+    	if (groupRepo.findById(groupId) != null) {
+    		if(relationRepo.findByUserIdAndGroupId(userId, groupId) != null) {
+    			System.out.println("User is a part of group");
+        		MessageEntity msg = new MessageEntity();
+        		msg.setSender(userId); 
+        		msg.setGroupId(groupId); 
+        		msg.setMessage(message);
+        		messageRepo.save(msg);
+        		return msg;
+    		}else {
+	    		throw new NotFoundException("User is not part of group");
+	    	}	
     	} else {
-    		throw new NullPointerException("User is not part of group");
-    	}	
+    		throw new NotFoundException("No such group with id of " + groupId);
+    	}
     }
     
-    public List<Integer> findUsersInMessage(int userId, int groupId) {
-    	/**
-    	 * Returns a list of all user ids in a MessageGroup
-    	 */
-    	if(groupRepo.findByUserIdAndGroupId(userId, groupId) != null) {
-    		System.out.println("User is a part of group");
-    		List<MessageGroupEntity> groupList = groupRepo.findByGroupId(groupId);
-    		List<Integer> userList = new ArrayList<Integer>();
-    		for(MessageGroupEntity member: groupList) {
-    			userList.add(member.getUserId());
-    		}
-    		return userList;
+	/**
+	 * Returns a list of all user ids in a MessageGroup
+	 */
+    public List<Integer> findUsersInMessage(int userId, int groupId) throws NotFoundException {
+    	if (groupRepo.findById(groupId) != null) {
+    		if(relationRepo.findByUserIdAndGroupId(userId, groupId) != null) {
+        		System.out.println("User is a part of group");
+        		List<MessageGroupRelationEntity> groupList = relationRepo.findByGroupId(groupId);
+        		List<Integer> userList = new ArrayList<Integer>();
+        		for(MessageGroupRelationEntity member: groupList) {
+        			userList.add(member.getUserId());
+        		}
+        		return userList;
+			} else {
+				throw new NotFoundException("User is not part of group");
+	    	}	
     	} else {
-    		throw new NullPointerException("User is not part of group");
-    	}	
-    }
+    		throw new NotFoundException("No such group with id of " + groupId);
+    	}    
+	}
     
-    public void kickMember(int userId, int groupId, int kickedId) {
-    	/**
-    	 * Removes userId from messageGroup if userId is owner
-    	 */
+	/**
+	 * Removes userId from messageGroup if userId is owner
+	 */    
+    public void kickMember(int userId, int groupId, int kickedId) throws NotFoundException {
     	if (true) {
     		leaveGroup(kickedId, groupId);
     	}
     }
     
-    public void leaveGroup(int userId, int groupId) {
-    	/**
-    	 * Deletes userId from MessageGroup 
-    	 * checks if last user in Group before deleting messsages
-    	 */
-    	if(groupRepo.findByUserIdAndGroupId(userId, groupId) != null) {
+	/**
+	 * Deletes userId from MessageGroup 
+	 * checks if last user in Group before deleting messsages
+	 */
+    public void leaveGroup(int userId, int groupId) throws NotFoundException {
+    	if(relationRepo.findByUserIdAndGroupId(userId, groupId) != null) {
     		System.out.println("User is a part of group");
 
     	} else {
-    		throw new NullPointerException("User is not part of group");
+    		throw new NotFoundException("User is not part of group");
     	}	
     }
     

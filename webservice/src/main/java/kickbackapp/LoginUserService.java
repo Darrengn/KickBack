@@ -21,10 +21,14 @@ public class LoginUserService {
         return loginUserRepo.findAll();
     }
     
-    public LoginUserEntity findLoginUser(String username, String password) throws NullPointerException {
+    public LoginUserEntity findLoginUser(String username, String password) throws NotFoundException {
     	LoginUserEntity loginUser = loginUserRepo.findByUsernameAndPassword(username,password);
     	System.out.println("Found login user" + loginUser.getId());
-    	return loginUser;
+    	if (loginUser != null) {
+	    	return loginUser;
+    	} else {
+    		throw new NotFoundException("No such Login user");
+    	}
     }
     
 

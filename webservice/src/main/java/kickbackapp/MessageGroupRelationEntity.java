@@ -14,8 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "messagegroup")
-public class MessageGroupEntity implements Serializable {
+@Table(name = "messagegrouprelation")
+public class MessageGroupRelationEntity implements Serializable {
 	
 
 	private static final long serialVersionUID = 1L;
@@ -26,18 +26,10 @@ public class MessageGroupEntity implements Serializable {
     private Integer id;
 	
 	@Column(nullable = false)
-	private String name;
-	
-	@Column(nullable = false)
-	private int owner;
-	
-	public int getOwner() {
-		return owner;
-	}
+	private int groupId;
 
-	public void setOwner(int owner) {
-		this.owner = owner;
-	}
+    @Column(nullable = false)
+    private int userId;
 
 	public Integer getId() {
 		return id;
@@ -47,13 +39,20 @@ public class MessageGroupEntity implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public int getGroupId() {
+		return groupId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
 	}
 
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	
 }

@@ -24,6 +24,7 @@ public class UserController {
     private UserService userService;
     @Autowired
     private LoginUserService loginUserService;
+  
     
     private static final Random rand = new Random();
 
@@ -31,13 +32,11 @@ public class UserController {
 
     }
 	
-    
+	/**
+	 * Gets details of specific user given username
+	 */
     @GetMapping("/user/{name}")
     public ResponseEntity getUser(@PathVariable String name) throws IOException {
-    	/**
-    	 * Gets details of specific user given username
-    	 */
-    	System.out.println("Finding user by name");
     	try {
     		UserEntity user = userService.findUserByName(name);
     		return ResponseEntity.status(HttpStatus.OK).body(user);
@@ -46,13 +45,11 @@ public class UserController {
     	}
     }
     
-
+    /**
+	 * Creates a new login user if given a unique username and returns AuthToken
+	 */
     @PostMapping("/createlogin") 
     public ResponseEntity<String> createlogin(@RequestBody LoginUserEntity user) throws IOException {
-    	/**
-    	 * Creates a new login user if given a unique username and returns AuthToken
-    	 */
-    	System.out.println("Saving new user");
     	if(user.getUsername() != null && user.getPassword() != null) {
 	    	if (!loginUserService.saveLoginUser(user)) {
 	    		System.out.println("Username is already taken");
@@ -67,75 +64,79 @@ public class UserController {
     	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail");
     }
     
-    
+	/**
+	 * Creates a new user if given all required values and assigns userId
+	 */
     @PostMapping("/createuser")
     public ResponseEntity<String> createUser(@RequestBody UserEntity user, @RequestHeader ("AuthToken") String authToken) throws IOException {
-    	/**
-    	 * Creates a new user if given all required values
-    	 */
-    	user.setUserId(userService.findUserByToken(authToken).getId());
-		if (user.getUserId() == null) {
-			userService.saveUser(user);
-			return ResponseEntity.status(HttpStatus.OK).body("User Created");
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already created");
-		}    	
+    	try {
+	    	userService.findUserByToken(authToken);
+	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already created");
+    	} catch( NotFoundException e) {
+    		try {
+				user.setUserId(userService.findUserByToken(authToken).getId());
+				System.out.println("User id is " + user.getUserId());
+				userService.saveUser(user);
+				return ResponseEntity.status(HttpStatus.OK).body("User Created");
+			} catch (NotFoundException e1) {
+				// TODO Auto-generated catch block
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERR");
+			}
+    	}	
     }
     
-    
-    @PutMapping("/user/{userId}")
+    /**
+     * Updates User with new fields but does not change null values
+     */
+    @PutMapping("/user")
     public ResponseEntity<String> updateUser(@RequestBody UserEntity user, @RequestHeader ("AuthToken") String userToken) throws IOException {
     	try {
     		userService.updateUser(userToken,user);
     		return ResponseEntity.status(HttpStatus.OK).body(null);
-    	} catch (NullPointerException e){
+    	} catch (NotFoundException e){
     		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     	}
     }
     
-
+	/**
+	 * Logs in user given valid username and password and returns AuthToken
+	 */
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginUserEntity loginUser) throws IOException {
-    	/**
-    	 * Logs in user given valid username and password and returns AuthToken
-    	 */
     	try {
-			System.out.println("login with username:" + loginUser.getUsername());
+			//System.out.println("login with username:" + loginUser.getUsername());
 			int userId = loginUserService.findLoginUser(loginUser.getUsername(), loginUser.getPassword()).getId();
 			TokenEntity token = null;
 			try {
-				token = userService.findTokenByUserid(userId);
+				token = userService.findTokenByUserId(userId);
 				System.out.println("User already has a token");
-			} catch(NullPointerException e) {
-    			token = new TokenEntity(); token.setUserid(userId); token.setToken(generateToken());
+			} catch(NotFoundException e) {
+    			token = new TokenEntity();
+    			token.setUserid(userId); 
+    			token.setToken(generateToken());
     			userService.saveToken(token);
     		}
     		
 			System.out.println("Login Successful token:" + token.getToken());
 			return ResponseEntity.status(HttpStatus.OK).body(token.getToken());
-    	} catch(NullPointerException e) {
+    	} catch(NotFoundException e) {
     		System.out.println("Invalid Login");
     		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     	}
     }
     
-
+    /*
     @DeleteMapping("/user/{userId}")
     public void deleteUser(@PathVariable Integer userId, @RequestHeader ("AuthToken") String userToken) throws IOException {
-    	/**
-    	 * Deletes user
-    	 */
-    	if(userToken == "dwimvalid") {
-    		userService.deleteUser(userId);
-    	}
+    	try {
+	    	if(userToken == "dwimvalid") {
+	    		userService.deleteUser(userId);
+	    	}
+    	} catch(NotFoundException e) {
+    		System.out.println("User does not exist");
+		}
 	}
-    
-    
-    @DeleteMapping("/login/{token}")
-    public void deleteTokenByString(@PathVariable String token, @RequestHeader ("AuthToken") String userToken) throws IOException {
-    	userService.deleteTokenByString(userToken);
-    }
-    
+	*/    
 
     public static String generateToken() {
         byte[] byts = new byte[128];
