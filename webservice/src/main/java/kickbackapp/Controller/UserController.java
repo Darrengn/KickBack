@@ -48,7 +48,7 @@ public class UserController {
     		UserEntity user = userService.findUserByName(name);
     		return ResponseEntity.status(HttpStatus.OK).body(user);
     	} catch(Exception e) {
-    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No user by name " + name);
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     	}
     }
     
@@ -87,7 +87,7 @@ public class UserController {
 				return ResponseEntity.status(HttpStatus.OK).body("User Created");
 			} catch (NotFoundException e1) {
 				// TODO Auto-generated catch block
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERR");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 			}
     	}	
     }

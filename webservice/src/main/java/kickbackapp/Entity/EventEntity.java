@@ -23,7 +23,7 @@ public class EventEntity implements Serializable {
     private String name;
 
     @Column(nullable =false)
-    private String owner;
+    private String owner; // Owner needs to be string to allow Controllers to return name, not ID
     
     @Column(nullable = false)
     private boolean isInvite;

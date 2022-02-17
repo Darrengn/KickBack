@@ -32,13 +32,13 @@ public class RelationController {
 	public RelationController() {
 
 	}
-
+	
+	/**
+	 * Gets info on specific relation id
+	 */
 	@GetMapping("/relation/{id}")
 	public ResponseEntity getRelation(@RequestHeader("AuthToken") String authToken, @PathVariable Integer id)
 			throws IOException {
-		/**
-		 * Gets info on specific relation id
-		 */
 		System.out.println("find relation");
 
 		try {
@@ -55,12 +55,12 @@ public class RelationController {
 		}
 	}
 
+	/**
+	 * Gets all friend requests pointing to an id
+	 */
 	@GetMapping("/relation/to/{id}")
 	public ResponseEntity getIncoming(@RequestHeader("AuthToken") String authToken, @PathVariable Integer id)
 			throws IOException {
-		/**
-		 * Gets all friend requests pointing to an id
-		 */
 		System.out.println("Finding incoming relations");
 
 		try {
@@ -77,13 +77,13 @@ public class RelationController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid resource");
 		}
 	}
-
+	
+	/**
+	 * Gets all friend requests originating from an id
+	 */
 	@GetMapping("/relation/from/{id}")
 	public ResponseEntity getOutgoing(@RequestHeader("AuthToken") String authToken, @PathVariable Integer id)
 			throws IOException {
-		/**
-		 * Gets all friend requests originating from an id
-		 */
 		System.out.println("Finding outgoing relations");
 
 		try {
@@ -101,12 +101,12 @@ public class RelationController {
 		}
 	}
 
+	/**
+	 * Creates a new relation if not exist.
+	 */
 	@PostMapping("/relation/create")
 	public ResponseEntity<String> sendRequest(@RequestHeader("AuthToken") String authToken, @RequestBody Integer id)
 			throws IOException {
-		/**
-		 * Creates a new relation if not exist.
-		 */
 		System.out.println("Creation relation");
 
 		try {
@@ -132,13 +132,13 @@ public class RelationController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid resource");
 		}
 	}
-
+	
+	/**
+	 * Creates a new user if given all required values
+	 */
 	@PutMapping("/relation/{id}/accept")
 	public ResponseEntity<String> updateRequest(@RequestHeader("AuthToken") String authToken, @PathVariable Integer id)
 			throws IOException {
-		/**
-		 * Creates a new user if given all required values
-		 */
 		System.out.println("Update request");
 
 		try {
@@ -161,13 +161,13 @@ public class RelationController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");
 		}
 	}
-
+	
+	/**
+	 * Creates a new user if given all required values
+	 */
 	@DeleteMapping("/relation/{id}")
 	public ResponseEntity<String> deleteRequest(@RequestHeader("AuthToken") String authToken, @PathVariable Integer id)
 			throws IOException {
-		/**
-		 * Creates a new user if given all required values
-		 */
 		System.out.println("Delete request");
 
 		try {

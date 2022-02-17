@@ -8,7 +8,7 @@ import kickbackapp.Entity.MessageGroupEntity;
 
 @Repository
 public interface MessageGroupRepo extends CrudRepository<MessageGroupEntity, Long> {
-    List<MessageGroupEntity> findById(int id);
+    MessageGroupEntity findById(int id);
 }
 
 

@@ -42,7 +42,7 @@ public class LoginUserService {
     			loginUserRepo.save(loginUser);
     			return true;
     		} else {
-    			System.out.println("Already a user with that name");
+    			System.out.println(String.format("Already a user with name %s", loginUser.getUsername()));
     			return false;
     		}
     }

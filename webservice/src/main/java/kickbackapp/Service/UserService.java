@@ -28,7 +28,7 @@ public class UserService {
     	if (user != null) {
     		return user;
     	} else {
-    		throw new NotFoundException("id is invalid");
+    		throw new NotFoundException(String.format("id %d is invalid",id));
     	}
     }
     
@@ -39,7 +39,7 @@ public class UserService {
 	    	user.setUserId(0);
 	    	return user;
     	} else {
-    		throw new NotFoundException("name is invalid");
+    		throw new NotFoundException(String.format("name %s is invalid",name));
     	}
     }
     
@@ -66,7 +66,7 @@ public class UserService {
         if( token != null) {
         	return token;
         } else {
-        	throw new NotFoundException("User id is invalid");
+        	throw new NotFoundException(String.format("User id  %d is invalid",userId));
         }
     }
     

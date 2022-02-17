@@ -31,30 +31,31 @@ import kickbackapp.Service.UserService;
 public class MessageController {
 
     @Autowired
-    private EventService eventService;
-
-
-    @Autowired
     private UserService userService;
     
-
     @Autowired 
     private MessageService messageService;
     
-    
     public MessageController() {
-
     }
-    //returns all groups of all users
+    
+    /**
+     * Returns a list of groups that a user is a part of
+     */
     @GetMapping("/messagegroup")
     public ResponseEntity getGroups( @RequestHeader("AuthToken") String userToken) throws IOException {
     	try {
     		int userId = userService.findUserByToken(userToken).getId();
     		Map<Integer, List<Integer>> groups = new HashMap<Integer, List<Integer>>();
-    		for(MessageGroupRelationEntity member: messageService.findMessageRelations(userId)) {
-    			List<Integer> group = groups.getOrDefault(member.getGroupId(), new ArrayList<Integer>());
-    			group.add(member.getId());
-    			groups.put(member.getGroupId(), group);
+    		//Loop thru all MessageRelations with userId in them
+    		for(MessageGroupRelationEntity memberOfGroup: messageService.findMessageRelations(userId)) {
+    			List<Integer> group = new ArrayList<Integer>();
+    			//Find all users in each group and add them to a list
+    			for (Integer memberInGroup: messageService.findUsersInMessage(userId, memberOfGroup.getGroupId())) {
+    				group.add(memberInGroup);
+    			}
+    			//Map that list to the groupId in the mapping
+    			groups.put(memberOfGroup.getGroupId(), group);
     		}
     		return ResponseEntity.status(HttpStatus.OK).body(groups);
     	} catch (NotFoundException e ) {
@@ -62,25 +63,31 @@ public class MessageController {
     	}
     }
     
+    /**
+     * Creates a new group given list of users
+     */
     @PostMapping("/messagegroup/{groupName}")
     public ResponseEntity createGroup(@PathVariable String groupName, @RequestHeader("AuthToken") String userToken, @RequestBody List<String> users) throws IOException{
     	try {
     		System.out.println("Create group");
     		int userId = userService.findUserByToken(userToken).getId();
-    		System.out.println("x");
     		List<Integer> userIds = new ArrayList<Integer>();
+    		userIds.add(userId);
     		for (String user: users) {
     			userIds.add(userService.findUserByName(user).getId());
     		}
-    		messageService.createGroup(userId, groupName, userIds);
-    		return ResponseEntity.status(HttpStatus.OK).body(null);
+    		Integer groupId = messageService.createGroup(userId, groupName, userIds);
+    		return ResponseEntity.status(HttpStatus.OK).body(groupId);
     	} catch (NotFoundException e ) {
     		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     	}
     }
-
+    //TODO: Change MessageEntity sender to be username not id
+    /**
+     * Returns a list of messages for a group
+     */
     @GetMapping("/message")
-    public ResponseEntity getMessages( @RequestHeader("AuthToken") String userToken, @RequestBody int groupId) throws IOException {
+    public ResponseEntity getMessagesFromGroup( @RequestHeader("AuthToken") String userToken, @RequestBody int groupId) throws IOException {
     	try {
     		int userId = userService.findUserByToken(userToken).getId();
     		return ResponseEntity.status(HttpStatus.OK).body(messageService.findMessages(userId, groupId));
@@ -89,6 +96,9 @@ public class MessageController {
     	}
     }
     
+    /**
+     * Sends a message to a group
+     */
     @PostMapping("/message/{groupId}")
     public ResponseEntity sendMessage(@PathVariable Integer groupId, @RequestHeader("AuthToken") String userToken, @RequestBody String message) throws IOException {
     	try {

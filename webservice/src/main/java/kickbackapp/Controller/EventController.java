@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import kickbackapp.NotFoundException;
 import kickbackapp.Entity.EventEntity;
 import kickbackapp.Entity.SimplifiedEvent;
+import kickbackapp.Entity.UserEntity;
 import kickbackapp.Service.EventService;
 import kickbackapp.Service.UserService;
 
@@ -28,11 +29,9 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-
     @Autowired
     private UserService userService;
     
-
     public EventController() {
 
     }
@@ -43,59 +42,67 @@ public class EventController {
      * Returns all events user has access to
      */
     @GetMapping("/event")
-    public ResponseEntity findEvents(@RequestHeader("AuthToken") String authToken) throws IOException {
-    	List<EventEntity> eventList = eventService.findEvents();
-		List<SimplifiedEvent> simplifiedList = new ArrayList<SimplifiedEvent>();
-		for (int i = 0; i < eventList.size(); i++) {
-			EventEntity event = eventList.get(i);
-			simplifiedList.add(new kickbackapp.Entity.SimplifiedEvent(event.getId(), event.getName(), event.getOwner()));
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(simplifiedList);
+    public ResponseEntity findEvents(@RequestHeader("AuthToken") String userToken) throws IOException {
+    	try {
+    		int userId = userService.findUserByToken(userToken).getId();
+    		List<EventEntity> eventList = eventService.findEvents();
+    		List<SimplifiedEvent> simplifiedList = new ArrayList<SimplifiedEvent>();
+    		for (int i = 0; i < eventList.size(); i++) {
+    			EventEntity event = eventList.get(i);
+    			simplifiedList.add(new kickbackapp.Entity.SimplifiedEvent(event.getId(), event.getName(), event.getOwner()));
+    		}
+    		return ResponseEntity.status(HttpStatus.OK).body(simplifiedList);
+    	} catch (NotFoundException e) { 
+    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    	}
+    	
     }
     
 	/**
 	 * Finds event given id and returns it
 	 */
     @GetMapping("/event/{eventId}")
-    public ResponseEntity findEvent(@PathVariable Integer eventId, @RequestHeader ("AuthToken") String userToken) throws IOException {
+    public ResponseEntity findEventById(@PathVariable Integer eventId, @RequestHeader ("AuthToken") String userToken) throws IOException {
     	try {
     		userService.findUserByToken(userToken);
-	    	return ResponseEntity.status(HttpStatus.OK).body(eventService.findEvent(eventId));
+    		EventEntity events = eventService.findEvent(eventId);
+			return ResponseEntity.status(HttpStatus.OK).body(events);
     	} catch (NotFoundException e) {
-    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     	}
     }
     
 	/**
-	 * Saves event if all not nullable attributes are assigned
+	 * Saves event if all not nullable attributes are assigned and returns it
 	 */
     @PostMapping("/event")
     public ResponseEntity saveEvent( @RequestHeader("AuthToken") String userToken, @RequestBody EventEntity event) throws IOException {
     	try {
-    		userService.findUserByToken(userToken);
-    		event.setOwner(userService.findUserByToken(userToken).getName());
-	    	EventEntity saved = eventService.saveEvent(event);
+    		UserEntity user = userService.findUserByToken(userToken);
+	    	EventEntity saved = eventService.saveEvent(event, user.getName()); //Will throw its own error if not nullable attributes dont exist
 	    	System.out.println("saving event");
 	    	return ResponseEntity.status(HttpStatus.OK).body(saved);
     	} catch (NotFoundException e) {
-    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    	} catch (Exception e) {
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     	}
     }
 
     
     //TODO: change to check if user is owner and update PathVariable to proper id pass
 	/**
-	 * Deletes event given ID
+	 * Deletes event given ID if user is owner
 	 */
 	@DeleteMapping("/event/{eventId}")
     public ResponseEntity<String> deleteEvent(@PathVariable Integer eventid, @RequestHeader ("AuthToken") String userToken) throws IOException {
 
 		try {
-			userService.findUserByToken(userToken);
-			eventService.deleteEvent(eventid);
-			return ResponseEntity.status(HttpStatus.OK).body("User Created");
+			String user = userService.findUserByToken(userToken).getName();
+			eventService.deleteEvent(eventid, user);
+			return ResponseEntity.status(HttpStatus.OK).body("Event deleted");
 		} catch (NotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
 	}
 }

@@ -34,9 +34,10 @@ public class MessageService {
 	/**
 	 * Returns a list of all groups user is a part of
 	 */
-    public List<MessageGroupRelationEntity> findMessageRelations(int userId) {    	
+    public List<MessageGroupRelationEntity> findMessageRelations(int userId) {  
     	return relationRepo.findByUserId(userId);
 	}
+    
     
 	/**
 	 * Returns a list of all messages from a group
@@ -47,20 +48,19 @@ public class MessageService {
     		System.out.println("User is part of group");
     		return messageRepo.findByGroupId(groupId);
     	} else {
-    		throw new NotFoundException("User is not part of group");
+    		throw new NotFoundException(String.format("User %d is not part of group %d or there are no messages",userId,groupId));
     	}
     }
     
 	/**
 	 * Creates a new group with members and returns the groupId
-	 * 
 	 */
     public int createGroup(int userId, String name, List<Integer> members) {
     	MessageGroupEntity newGroup = new MessageGroupEntity();
     	newGroup.setName(name);
     	newGroup.setOwner(userId);
     	int groupId = groupRepo.save(newGroup).getId();
-    	System.out.println("Creating new group of id"+ groupId);
+    	System.out.println("Creating new group of id" + groupId);
     	for(Integer memberId: members) {
     		MessageGroupRelationEntity relation = new MessageGroupRelationEntity();
     		relation.setGroupId(groupId);
@@ -84,10 +84,10 @@ public class MessageService {
 	    		relationRepo.save(mem);
 	    		return mem;
     		}else {
-	    		throw new NotFoundException("User is not part of group");
+	    		throw new NotFoundException(String.format("User %d is not part of group %d",userId,groupId));
 	    	}	
     	} else {
-    		throw new NotFoundException("No such group with id of " + groupId);
+    		throw new NotFoundException(String.format("No such group %d",groupId));
     	}
     }
     
@@ -105,10 +105,10 @@ public class MessageService {
         		messageRepo.save(msg);
         		return msg;
     		}else {
-	    		throw new NotFoundException("User is not part of group");
+	    		throw new NotFoundException(String.format("User %d is not part of group %d",userId,groupId));
 	    	}	
     	} else {
-    		throw new NotFoundException("No such group with id of " + groupId);
+    		throw new NotFoundException(String.format("No such group %d",groupId));
     	}
     }
     
@@ -126,10 +126,10 @@ public class MessageService {
         		}
         		return userList;
 			} else {
-				throw new NotFoundException("User is not part of group");
+				throw new NotFoundException(String.format("User %d is not part of group %d",userId,groupId));
 	    	}	
     	} else {
-    		throw new NotFoundException("No such group with id of " + groupId);
+    		throw new NotFoundException(String.format("No such group %d",groupId));
     	}    
 	}
     
@@ -137,8 +137,10 @@ public class MessageService {
 	 * Removes userId from messageGroup if userId is owner
 	 */    
     public void kickMember(int userId, int groupId, int kickedId) throws NotFoundException {
-    	if (true) {
+    	if (groupRepo.findById(groupId).getOwner() == userId) {
     		leaveGroup(kickedId, groupId);
+    	} else {
+    		throw new NotFoundException(String.format("User %d is not owner of group",userId));
     	}
     }
     
@@ -151,7 +153,7 @@ public class MessageService {
     		System.out.println("User is a part of group");
 
     	} else {
-    		throw new NotFoundException("User is not part of group");
+    		throw new NotFoundException(String.format("User %d is not part of group %d",userId,groupId));
     	}	
     }
     
