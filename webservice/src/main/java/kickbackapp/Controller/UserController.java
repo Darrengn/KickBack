@@ -20,7 +20,6 @@ import kickbackapp.NotFoundException;
 import kickbackapp.Entity.LoginUserEntity;
 import kickbackapp.Entity.TokenEntity;
 import kickbackapp.Entity.UserEntity;
-import kickbackapp.Service.LoginUserService;
 import kickbackapp.Service.UserService;
 
 @RestController
@@ -29,8 +28,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private LoginUserService loginUserService;
+
   
     
     private static final Random rand = new Random();
@@ -58,7 +56,7 @@ public class UserController {
     @PostMapping("/createlogin") 
     public ResponseEntity<String> createlogin(@RequestBody LoginUserEntity user) throws IOException {
     	if(user.getUsername() != null && user.getPassword() != null) {
-	    	if (!loginUserService.saveLoginUser(user)) {
+	    	if (!userService.saveLoginUser(user)) {
 	    		System.out.println("Username is already taken");
 	    	} else { 
 	    		String token = login(user).getBody();
@@ -81,7 +79,7 @@ public class UserController {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already created");
     	} catch( NotFoundException e) {
     		try {
-				user.setUserId(userService.findUserByToken(authToken).getId());
+				user.setUserId(userService.findUserByToken(authToken).getUserId());
 				System.out.println("User id is " + user.getUserId());
 				userService.saveUser(user);
 				return ResponseEntity.status(HttpStatus.OK).body("User Created");
@@ -112,7 +110,7 @@ public class UserController {
     public ResponseEntity<String> login(@RequestBody LoginUserEntity loginUser) throws IOException {
     	try {
 			//System.out.println("login with username:" + loginUser.getUsername());
-			int userId = loginUserService.findLoginUser(loginUser.getUsername(), loginUser.getPassword()).getId();
+			int userId = userService.findLoginUser(loginUser.getUsername(), loginUser.getPassword()).getId();
 			TokenEntity token = null;
 			try {
 				token = userService.findTokenByUserId(userId);

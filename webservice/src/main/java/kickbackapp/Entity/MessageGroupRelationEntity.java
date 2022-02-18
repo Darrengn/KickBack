@@ -31,14 +31,6 @@ public class MessageGroupRelationEntity implements Serializable {
     @Column(nullable = false)
     private int userId;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public int getGroupId() {
 		return groupId;
 	}

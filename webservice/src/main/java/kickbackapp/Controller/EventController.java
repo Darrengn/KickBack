@@ -44,7 +44,7 @@ public class EventController {
     @GetMapping("/event")
     public ResponseEntity findEvents(@RequestHeader("AuthToken") String userToken) throws IOException {
     	try {
-    		int userId = userService.findUserByToken(userToken).getId();
+    		int userId = userService.findUserByToken(userToken).getUserId();
     		List<EventEntity> eventList = eventService.findEvents();
     		List<SimplifiedEvent> simplifiedList = new ArrayList<SimplifiedEvent>();
     		for (int i = 0; i < eventList.size(); i++) {

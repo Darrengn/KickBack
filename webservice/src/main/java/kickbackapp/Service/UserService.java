@@ -6,14 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kickbackapp.NotFoundException;
+import kickbackapp.Entity.LoginUserEntity;
 import kickbackapp.Entity.TokenEntity;
 import kickbackapp.Entity.UserEntity;
+import kickbackapp.Repository.LoginUserRepo;
 import kickbackapp.Repository.TokenRepo;
 import kickbackapp.Repository.UserRepo;
 
 @Service
 public class UserService {
-
+	
+    @Autowired
+    private LoginUserRepo loginUserRepo;
+    
     @Autowired
     private UserRepo userRepo;
     @Autowired
@@ -22,6 +27,55 @@ public class UserService {
     public UserService() {
 
     }
+    
+    public List<LoginUserEntity> findLoginUsers() {
+    	System.out.println("findLoginUsers");
+        return loginUserRepo.findAll();
+    }
+    
+    public LoginUserEntity findLoginUser(String username, String password) throws NotFoundException {
+    	LoginUserEntity loginUser = loginUserRepo.findByUsernameAndPassword(username,password);
+    	System.out.println("Found login user" + loginUser.getId());
+    	if (loginUser != null) {
+	    	return loginUser;
+    	} else {
+    		throw new NotFoundException("No such Login user");
+    	}
+    }
+   
+    public String findUsernameFromUserId(Integer userId) throws NotFoundException {
+    	String username = loginUserRepo.findById(userId).getUsername();
+    	if (username != null) {
+    		return username;
+    	} else {
+    		throw new NotFoundException(String.format("No such user with id %d", userId));
+    	}
+    }
+    
+
+    public boolean saveLoginUser(LoginUserEntity loginUser) {
+    		if(loginUserRepo.findByUsername(loginUser.getUsername().toLowerCase()) == null) {
+    			System.out.println("Saving User");
+    			loginUserRepo.save(loginUser);
+    			return true;
+    		} else {
+    			System.out.println(String.format("Already a user with name %s", loginUser.getUsername()));
+    			return false;
+    		}
+    }
+    
+    
+    public void deleteLoginUser(Integer id) {
+    	System.out.println("find loginuser for delete:" + id);
+		LoginUserEntity user = loginUserRepo.findById(id);
+		if (user != null) {
+			System.out.println("deleting user:" + user.getUsername());
+			loginUserRepo.delete(user);
+		}	
+    }
+    
+    
+    
     
     public UserEntity findUserById(Integer id) throws NotFoundException {
     	UserEntity user = userRepo.findByUserId(id);
@@ -36,7 +90,6 @@ public class UserService {
     	System.out.println("find user by" + name);
     	UserEntity user = userRepo.findByName(name);
     	if(user != null) {
-	    	user.setUserId(0);
 	    	return user;
     	} else {
     		throw new NotFoundException(String.format("name %s is invalid",name));
@@ -54,11 +107,7 @@ public class UserService {
     	}
     }
    
-    
-    public List<TokenEntity> findTokens() {
-    	System.out.println("findTokens");
-        return tokenRepo.findAll();
-    }
+   
     
     
     public TokenEntity findTokenByUserId(int userId) throws NotFoundException {
@@ -108,7 +157,7 @@ public class UserService {
 		}
     }
     */
-    
+    /*
     
     public void deleteToken(Integer id) {
     	TokenEntity token = tokenRepo.findById(id);
@@ -126,4 +175,5 @@ public class UserService {
     		}	
     	}
     }
+    */
 }

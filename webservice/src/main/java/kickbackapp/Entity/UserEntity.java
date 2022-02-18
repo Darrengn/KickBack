@@ -25,15 +25,6 @@ public class UserEntity implements Serializable {
     
     @Column(nullable = false)
     private Integer userId;
-    
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
 
     public String getName() {
         return name;

@@ -43,7 +43,7 @@ public class RelationController {
 
 		try {
 			RelationEntity relation = relationService.findById(id);
-			Integer userId = userService.findUserByToken(authToken).getId();
+			Integer userId = userService.findUserByToken(authToken).getUserId();
 
 			if (userId == relation.getTo() || userId == relation.getFrom()) {
 				return ResponseEntity.status(HttpStatus.OK).body(relation);
@@ -64,7 +64,7 @@ public class RelationController {
 		System.out.println("Finding incoming relations");
 
 		try {
-			Integer userId = userService.findUserByToken(authToken).getId();
+			Integer userId = userService.findUserByToken(authToken).getUserId();
 
 			if (userId == id) {
 				List<RelationEntity> relations = relationService.findIncoming(id);
@@ -87,7 +87,7 @@ public class RelationController {
 		System.out.println("Finding outgoing relations");
 
 		try {
-			Integer userId = userService.findUserByToken(authToken).getId();
+			Integer userId = userService.findUserByToken(authToken).getUserId();
 
 			if (userId != id) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Insufficient permissions");
@@ -110,7 +110,7 @@ public class RelationController {
 		System.out.println("Creation relation");
 
 		try {
-			Integer userId = userService.findUserByToken(authToken).getId();
+			Integer userId = userService.findUserByToken(authToken).getUserId();
 			RelationEntity relation = relationService.findThread(userId, id);
 
 			if (userId == null) {
@@ -143,7 +143,7 @@ public class RelationController {
 
 		try {
 			RelationEntity relation = relationService.findById(id);
-			Integer userId = userService.findUserByToken(authToken).getId();
+			Integer userId = userService.findUserByToken(authToken).getUserId();
 
 			if (relation == null) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Relation does not exist");
@@ -172,7 +172,7 @@ public class RelationController {
 
 		try {
 			RelationEntity relation = relationService.findById(id);
-			Integer userId = userService.findUserByToken(authToken).getId();
+			Integer userId = userService.findUserByToken(authToken).getUserId();
 
 			if (relation == null) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Relation does not exist");
