@@ -38,7 +38,6 @@ public class MessageService {
     	return relationRepo.findByUserId(userId);
 	}
     
-    
 	/**
 	 * Returns a list of all messages from a group
 	 * Only returns messages from unblocked users?

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "event")
+@Table(name = "friend")
 public class FriendEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

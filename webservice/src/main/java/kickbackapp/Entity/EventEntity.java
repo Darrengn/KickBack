@@ -26,10 +26,10 @@ public class EventEntity implements Serializable {
     private String owner; // Owner needs to be string to allow Controllers to return name, not ID
     
     @Column(nullable = false)
-    private boolean isInvite;
+    private boolean inviteOnly;
     
     @Column(nullable = true)
-    private int numGuests;
+    private int numGuests = 0;
     
     @Column(nullable = true)
     private String category;
@@ -41,12 +41,28 @@ public class EventEntity implements Serializable {
     private String description;
     
 
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public boolean isInvite() {
-		return isInvite;
+		return inviteOnly;
 	}
 
 	public void setInvite(boolean isInvite) {
-		this.isInvite = isInvite;
+		this.inviteOnly = isInvite;
 	}
 
 	public int getNumGuests() {
@@ -88,7 +104,24 @@ public class EventEntity implements Serializable {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-
+	
+	public void updateValues(EventEntity updates) {
+		if(updates.getName() != null) {
+			this.setName(updates.getName());
+		}
+		if(updates.getNumGuests() != 0) {
+			this.setNumGuests(updates.getNumGuests());
+		}
+		if(updates.getContact() != null) {
+			this.setContact(updates.getContact());
+		}
+		if(updates.getCategory() != null) {
+			this.setCategory(updates.getCategory());
+		}
+		if(updates.getDescription() != null) {
+			this.setDescription(updates.getDescription());
+		}
+	}
 
 
 }

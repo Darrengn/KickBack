@@ -29,8 +29,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-  
-    
     private static final Random rand = new Random();
 
     public UserController() {
@@ -40,10 +38,11 @@ public class UserController {
 	/**
 	 * Gets details of specific user given username
 	 */
-    @GetMapping("/user/{name}")
-    public ResponseEntity getUser(@PathVariable String name) throws IOException {
+    @GetMapping("/user/{username}")
+    public ResponseEntity getUser(@PathVariable String username) throws IOException {
     	try {
-    		UserEntity user = userService.findUserByName(name);
+    		Integer userId = userService.findUserIdByUsername(username);
+    		UserEntity user = userService.findUserByUserId(userId);
     		return ResponseEntity.status(HttpStatus.OK).body(user);
     	} catch(Exception e) {
     		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -79,7 +78,7 @@ public class UserController {
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already created");
     	} catch( NotFoundException e) {
     		try {
-				user.setUserId(userService.findUserByToken(authToken).getUserId());
+				user.setUserId(userService.findUserIdByToken(authToken));
 				System.out.println("User id is " + user.getUserId());
 				userService.saveUser(user);
 				return ResponseEntity.status(HttpStatus.OK).body("User Created");
@@ -91,19 +90,6 @@ public class UserController {
     }
     
     /**
-     * Updates User with new fields but does not change null values
-     */
-    @PutMapping("/user")
-    public ResponseEntity<String> updateUser(@RequestBody UserEntity user, @RequestHeader ("AuthToken") String userToken) throws IOException {
-    	try {
-    		userService.updateUser(userToken,user);
-    		return ResponseEntity.status(HttpStatus.OK).body(null);
-    	} catch (NotFoundException e){
-    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-    	}
-    }
-    
-	/**
 	 * Logs in user given valid username and password and returns AuthToken
 	 */
     @PostMapping("/login")
@@ -117,11 +103,10 @@ public class UserController {
 				System.out.println("User already has a token");
 			} catch(NotFoundException e) {
     			token = new TokenEntity();
-    			token.setUserid(userId); 
+    			token.setUserId(userId); 
     			token.setToken(generateToken());
     			userService.saveToken(token);
     		}
-    		
 			System.out.println("Login Successful token:" + token.getToken());
 			return ResponseEntity.status(HttpStatus.OK).body(token.getToken());
     	} catch(NotFoundException e) {
@@ -130,18 +115,35 @@ public class UserController {
     	}
     }
     
-    /*
-    @DeleteMapping("/user/{userId}")
-    public void deleteUser(@PathVariable Integer userId, @RequestHeader ("AuthToken") String userToken) throws IOException {
+    /**
+     * Updates User with new fields but does not change null values
+     */
+    @PutMapping("/user")
+    public ResponseEntity<String> updateUser(@RequestBody UserEntity user, @RequestHeader ("AuthToken") String userToken) throws IOException {
     	try {
-	    	if(userToken == "dwimvalid") {
-	    		userService.deleteUser(userId);
-	    	}
+    		Integer userId = userService.findUserByToken(userToken).getUserId();
+    		user.setUserId(userId);
+    		userService.updateUser(user);
+    		return ResponseEntity.status(HttpStatus.OK).body(null);
+    	} catch (NotFoundException e){
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    	}
+    }
+    
+    /**
+     * Deletes User, LoginUser, and UserToken for user
+     */
+    @DeleteMapping("/user")
+    public ResponseEntity deleteUser( @RequestHeader ("AuthToken") String userToken) throws IOException {
+    	try {
+	    	UserEntity user = userService.findUserByToken(userToken);
+	    	userService.deleteUser(user.getUserId(),userToken);
+
+	    	return ResponseEntity.status(HttpStatus.OK).body(null);
     	} catch(NotFoundException e) {
-    		System.out.println("User does not exist");
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
 	}
-	*/    
 
     public static String generateToken() {
         byte[] byts = new byte[128];

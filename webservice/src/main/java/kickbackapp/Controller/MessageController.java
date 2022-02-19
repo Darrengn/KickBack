@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import kickbackapp.NotFoundException;
 import kickbackapp.Entity.MessageGroupRelationEntity;
 import kickbackapp.Entity.SimplifiedEvent;
+import kickbackapp.Entity.UserEntity;
 import kickbackapp.Service.EventService;
 import kickbackapp.Service.MessageService;
 import kickbackapp.Service.UserService;
@@ -52,7 +53,7 @@ public class MessageController {
     			List<String> group = new ArrayList<String>();
     			//Find all users in each group and add them to a list
     			for (Integer memberInGroup: messageService.findUsersInMessage(userId, memberOfGroup.getGroupId())) {
-    				group.add(userService.findUsernameFromUserId(memberInGroup));
+    				group.add(userService.findUsernameByUserId(memberInGroup));
     			}
     			//Map that list to the groupId in the mapping
     			groups.put(memberOfGroup.getGroupId(), group);
@@ -74,7 +75,7 @@ public class MessageController {
     		List<Integer> userIds = new ArrayList<Integer>();
     		userIds.add(userId);
     		for (String user: users) {
-    			userIds.add(userService.findUserByName(user).getUserId());
+    			userIds.add(userService.findUserByUsername(user).getUserId());
     		}
     		System.out.println(userIds);
     		Integer groupId = messageService.createGroup(userId, groupName, userIds);
@@ -83,6 +84,22 @@ public class MessageController {
     		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     	}
     }
+    
+    /**
+     * Adds a friendUser to a group if user is part of group 
+     */
+    @PostMapping("/messagegroup/{groupId}/add")
+    public ResponseEntity addToGroup(@PathVariable Integer groupId, @RequestHeader("AuthToken") String userToken, @RequestBody String friendUser) throws IOException{
+    	try {
+    		Integer userId = userService.findUserByToken(userToken).getUserId();
+    		Integer friendId = userService.findUserByUsername(friendUser).getUserId();
+    		messageService.addToGroup(userId, groupId, friendId);
+    		return ResponseEntity.status(HttpStatus.OK).body(null);
+    	} catch (NotFoundException e ) {
+    		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    	}
+    }
+    
     //TODO: Change MessageEntity sender to be username not id
     /**
      * Returns a list of messages for a group

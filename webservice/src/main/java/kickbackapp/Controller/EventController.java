@@ -95,11 +95,11 @@ public class EventController {
 	 * Deletes event given ID if user is owner
 	 */
 	@DeleteMapping("/event/{eventId}")
-    public ResponseEntity<String> deleteEvent(@PathVariable Integer eventid, @RequestHeader ("AuthToken") String userToken) throws IOException {
+    public ResponseEntity<String> deleteEvent(@PathVariable Integer eventId, @RequestHeader ("AuthToken") String userToken) throws IOException {
 
 		try {
 			String user = userService.findUserByToken(userToken).getName();
-			eventService.deleteEvent(eventid, user);
+			eventService.deleteEvent(eventId, user);
 			return ResponseEntity.status(HttpStatus.OK).body("Event deleted");
 		} catch (NotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

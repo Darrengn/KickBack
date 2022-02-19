@@ -33,7 +33,7 @@ public class TokenEntity implements Serializable {
     private String token;
     
     @Column(nullable = false)
-    private Integer userid;
+    private Integer userId;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -58,11 +58,11 @@ public class TokenEntity implements Serializable {
 	}
 
 	
-	public Integer getUserid() {
-		return userid;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUserid(Integer userId) {
-		this.userid = userId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 }

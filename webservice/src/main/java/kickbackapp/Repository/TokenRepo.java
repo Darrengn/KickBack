@@ -8,6 +8,6 @@ import kickbackapp.Entity.TokenEntity;
 
 @Repository
 public interface TokenRepo extends CrudRepository<TokenEntity, Long> {
-    TokenEntity findByUserid(Integer userid);
+    TokenEntity findByUserId(Integer userId);
     TokenEntity findByToken(String token);
 }

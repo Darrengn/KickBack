@@ -49,6 +49,5 @@ public class UserEntity implements Serializable {
 		if(updates.getName() != null) {
 			this.setName(updates.getName());
 		}
-		
 	}
 }
