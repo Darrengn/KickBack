@@ -1,6 +1,6 @@
 //replaced with code from DylanLee_Signin branch
 import React, { useEffect } from 'react';
-import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, StatusBar,} from 'react-native';
+import { View, Text, Button, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, StatusBar, Image} from 'react-native';
 import { auth } from '../firebase';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -13,20 +13,24 @@ const LoginScreen = ({navigation}) => {
         <View style={[styles.container,{flex: 1, backgroundColor:'black'}]}>
             
             <SafeAreaView>
-                <StatusBar barStyle="light-content"/>
+                <StatusBar barStyle="light-content"/>  
             </SafeAreaView>
 
             <View style = {{flex: '5%', alignItems: 'flex-end', justifyContent: 'flex-start', flexDirection:'row',}}>
                 <View style = {{flex: '5%'}}></View>
 
                 <TouchableOpacity onPress={() => navigation.navigate("Onboarding")}>
-                    <Icon name="chevron-back-outline" size={20} color='white' />
+                    <Icon name="chevron-back-outline" size={20} color='white'/>
                 </TouchableOpacity>
+
                 <View style = {{flex: '35%'}}></View>
-                <View style = {{flex: '20%'}}>
-                    <Text style = {{color: 'white'}}>Logo here</Text>
+
+                <View style = {{flex: '20%', alignContent:'center', justifyContent:'center'}}>
+                    <Image style = {{height: 25, width: 200 }} source={require('./Logo.jpg')}/>
                 </View>
+
                 <View style = {{flex: '40%'}}></View>
+
             </View>
 
             <View style = {{flex: '5%'}}></View>
